@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="match_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:paddingLeft="10dp"
+	android:paddingRight="10dp">
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:layout_marginTop="15dp">
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:hint="Nama Produk"
+			android:id="@+id/namaproduk"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content">
+
+		<ImageButton
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:src="@drawable/ic_barcode"
+			android:id="@+id/produkdlgImageButton1"
+			android:layout_alignParentRight="true"/>
+
+		<android.support.design.widget.TextInputLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:layout_toLeftOf="@id/produkdlgImageButton1"
+			android:layout_alignParentLeft="true">
+
+			<EditText
+				android:layout_height="wrap_content"
+				android:layout_width="match_parent"
+				android:ems="10"
+				android:hint="Kode Produk"
+				android:inputType="number"
+				android:id="@+id/kodeproduk"/>
+
+		</android.support.design.widget.TextInputLayout>
+
+	</RelativeLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:inputType="numberSigned"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:hint="Harga"
+			android:id="@+id/harga"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+</LinearLayout>
+

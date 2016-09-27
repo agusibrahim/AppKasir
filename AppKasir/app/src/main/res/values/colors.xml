@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<color name="table_header_text">#CCFFFFFF</color>
+    <color name="table_data_row_even">#11C5CAE9</color>
+    <color name="table_data_row_odd">#33C5CAE9</color>
+	
+	<color name="primary">#34495e</color>
+	<color name="primary_dark">#212e3b</color>
+	<color name="primary_light">#6e7174</color>
+	<color name="accent">#ffff8f00</color>
+	<color name="primary_text">#212121</color>
+	<color name="secondary_text">#727272</color>
+	<color name="icons">#FFFFFF</color>
+	<color name="divider">#B6B6B6</color>
+</resources>

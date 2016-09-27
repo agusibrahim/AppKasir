@@ -20,5 +20,7 @@ android {
 }
 
 dependencies {
+	compile 'com.android.support:design:23.4.0'
+	compile 'de.codecrafters.tableview:tableview:2.2.2'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
