@@ -58,7 +58,7 @@ public class inputProdukScanner
 			}
 		};
 		barcodeView = (DecoratedBarcodeView) v.findViewById(R.id.scanner);
-		barcodeView.setStatusText("Arahkan ke produk barcode");
+		barcodeView.setStatusText("Arahkan ke barcode");
 		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
 		formatList.add(BarcodeFormat.EAN_13);
 		barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
@@ -98,6 +98,7 @@ public class inputProdukScanner
 					namaproduk.setEnabled(false);
 					hargaproduk.setEnabled(false);
 					stokproduk.setEnabled(false);
+					barcodeView.setStatusText("Arahkan ke barcode");
 				}
 			});
 		dialog.show();
