@@ -57,7 +57,7 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 			total=total-bel.getProduk().getHarga();
 			total=total+(bel.getProduk().getHarga()*prodquantity);
 		}else{
-			// jika tidak ada dalam meranjang
+			// jika tidak ada dalam keranjang
 			// maka masukan ke keranjang
 			getData().add(new Belanjaan(prod, quantity));
 			total=total+prod.getHarga();
