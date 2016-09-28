@@ -10,7 +10,7 @@
 		android:icon="@drawable/ic_package_variant"/>
 	<item
         android:id="@+id/frag3"
-        android:title="Produk"
+        android:title="Laporan"
 		android:icon="@drawable/ic_clipboard_outline"/>
 	</group>
 </menu>
