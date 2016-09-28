@@ -89,6 +89,7 @@ public class productFragment extends Fragment
 						switch(menu.getItemId()){
 							case R.id.addtoproduct:
 								MainActivity.dataBalanjaan.tambah(clickedData, 1);
+								
 								break;
 							case R.id.menuedit:
 								new ProdukDialog(getActivity(), clickedData);
