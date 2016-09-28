@@ -70,7 +70,6 @@ public class MainActivity extends AppCompatActivity
 		}catch(Exception e){}
 		FragmentManager fm=getSupportFragmentManager();
 		fm.beginTransaction().replace(R.id.konten, frag).commit();
-		Toast.makeText(this, "Clicked "+menu.getTitle(),Toast.LENGTH_SHORT).show();
 		menu.setChecked(true);
 		setTitle(menu.getTitle());
 		mDrawer.closeDrawers();
