@@ -9,6 +9,7 @@ import java.text.*;
 import com.agusibrahim.appkasir.*;
 import com.agusibrahim.appkasir.Fragment.*;
 import android.text.*;
+import android.util.*;
 
 public class BelanjaanDataAdapter extends TableDataAdapter
 {
@@ -35,9 +36,32 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		}
 		return render;
 	}
+	// Fungsi get Belanjaan melalui SN
+	public Belanjaan getBelBySN(String sn){
+		Belanjaan pp = null;
+		for(Belanjaan b:getData()){
+			if(b.getProduk().getSn().equals(sn)){
+				pp=b;
+				break;
+			}
+		}
+		return pp;
+	}
 	public void tambah(Produk prod, int quantity){
-		getData().add(new Belanjaan(prod, quantity));
-		total=total+prod.getHarga();
+		Belanjaan bel=getBelBySN(prod.getSn());
+		// jika produk sudah ada dalam keranjang
+		// maka tambahkan quantity
+		if(bel!=null){
+			int prodquantity=bel.getQuantity()+quantity;
+			getData().set(getData().indexOf(bel), new Belanjaan(prod, prodquantity));
+			total=total-bel.getProduk().getHarga();
+			total=total+(bel.getProduk().getHarga()*prodquantity);
+		}else{
+			// jika tidak ada dalam meranjang
+			// maka masukan ke keranjang
+			getData().add(new Belanjaan(prod, quantity));
+			total=total+prod.getHarga();
+		}
 		notifyDataSetChanged();
 	}
 	public void hapus(Produk produk){
