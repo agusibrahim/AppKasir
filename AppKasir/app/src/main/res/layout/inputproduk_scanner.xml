@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="wrap_content"
+	android:orientation="vertical"
+	android:padding="10dp">
+
+	<com.journeyapps.barcodescanner.DecoratedBarcodeView
+		android:layout_height="150dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:background="#525150"
+		android:id="@+id/scanner"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:hint="Nama Produk"
+		android:id="@+id/new_namaproduk"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:layout_width="match_parent"
+		android:ems="10"
+		android:hint="Harga"
+		android:inputType="numberDecimal"
+		android:id="@+id/new_hargaproduk"/>
+
+	<EditText
+		android:layout_height="wrap_content"
+		android:inputType="number"
+		android:layout_width="wrap_content"
+		android:ems="10"
+		android:hint="Stok"
+		android:id="@+id/new_stok"/>
+
+	<RelativeLayout
+		android:layout_height="wrap_content"
+		android:layout_width="wrap_content"
+		android:layout_marginBottom="10dp">
+
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Batal"
+			android:id="@+id/cancelbtn"/>
+
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Selesai"
+			android:layout_toRightOf="@id/cancelbtn"
+			android:id="@+id/selesaibtn"/>
+
+		<Button
+			style="?android:attr/buttonBarButtonStyle"
+			android:layout_height="wrap_content"
+			android:layout_width="wrap_content"
+			android:text="Tambahkan"
+			android:layout_alignParentRight="true"
+			android:layout_toRightOf="@id/selesaibtn"
+			android:id="@+id/tambhakanbtn"/>
+
+	</RelativeLayout>
+
+</LinearLayout>
+

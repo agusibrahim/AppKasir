@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<com.agusibrahim.appkasir.tabelBelanjaan
+		xmlns:table="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/belanjaan"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		table:tableView_headerColor="@color/primary" 
+	/>
+
+	<android.support.design.widget.FloatingActionButton
+		android:id="@+id/fab_belanja"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_alignParentRight="true"
+		android:layout_marginBottom="20dp"
+		android:layout_marginRight="20dp"
+		android:src="@drawable/ic_basket"
+		app:borderWidth="0dp"/>
+
+</RelativeLayout>
+

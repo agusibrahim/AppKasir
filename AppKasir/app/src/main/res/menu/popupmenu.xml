@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/addtoproduct"
+        android:icon="@drawable/ic_basket_fill_dark"
+        android:title="Tambahkan ke Keranjang" />
+
+    <item
+        android:id="@+id/menuedit"
+        android:icon="@drawable/ic_pencil"
+        android:title="Edit" />
+
+    <item
+        android:id="@+id/menudelete"
+        android:icon="@drawable/ic_delete"
+        android:title="Hapus" />
+
+</menu>

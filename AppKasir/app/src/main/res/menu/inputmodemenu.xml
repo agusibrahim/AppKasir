@@ -1,0 +1,13 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        android:id="@+id/tambahsatuan"
+        android:icon="@drawable/ic_credit_card"
+        android:title="Tambah Satuan" />
+
+    <item
+        android:id="@+id/tambahbanyak"
+        android:icon="@drawable/ic_credit_card_multiple"
+        android:title="Tambah Banyak" />
+    
+</menu>
