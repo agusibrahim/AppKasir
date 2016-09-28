@@ -5,6 +5,7 @@ import android.view.*;
 import android.widget.*;
 import com.agusibrahim.appkasir.Model.*;
 import android.text.*;
+import com.agusibrahim.appkasir.Fragment.productFragment;
 
 public class ProdukDialog
 {
@@ -15,12 +16,14 @@ public class ProdukDialog
 		final TextView nama=(TextView) form.findViewById(R.id.namaproduk);
 		final TextView kodeprod=(TextView) form.findViewById(R.id.kodeproduk);
 		final TextView harga=(TextView) form.findViewById(R.id.harga);
+		final TextView stok=(TextView) form.findViewById(R.id.stok);
 		// Jika dataset tidak null yang berarti itu adalah mode PEMBARUAN/EDIT
 		// Maka kolom akan di isi, serta ditambabkan tombol Neutral (Hapus)
 		if(dataset!=null){
 			nama.setText(dataset.getNama());
 			kodeprod.setText(dataset.getSn());
 			harga.setText(""+dataset.getHarga());
+			stok.setText(""+dataset.getStok());
 			positiveTxt="Perbarui";
 			dlg.setNeutralButton("Hapus", new DialogInterface.OnClickListener(){
 					@Override
@@ -38,6 +41,7 @@ public class ProdukDialog
 					data.put("nama", nama.getText().toString());
 					data.put("sn", kodeprod.getText().toString());
 					data.put("harga", Long.parseLong(harga.getText().toString()));
+					data.put("stok", Integer.parseInt(stok.getText().toString()));
 					// Jika mode penambahan
 					if(dataset==null){
 						MainActivity.dataproduk.tambah(data);
@@ -71,4 +75,5 @@ public class ProdukDialog
 		kodeprod.addTextChangedListener(watcher);
 		harga.addTextChangedListener(watcher);
 	}
+	
 }

@@ -13,7 +13,7 @@ public class DBHelper extends SQLiteOpenHelper
 	}
 	@Override
 	public void onCreate(SQLiteDatabase db) {
-		db.execSQL("create table "+namaTable+" (sn TEXT null,nama TEXT null,harga INTEGER null)");
+		db.execSQL("create table "+namaTable+" (sn TEXT null,nama TEXT null,harga INTEGER null, stok INTEGER null)");
 	}
 
 	@Override
@@ -29,8 +29,13 @@ public class DBHelper extends SQLiteOpenHelper
 	public void delete(String sn){
 		dbw.delete(namaTable, "sn="+sn, null);
 	}
+	
 	public Cursor semuaData() {
         Cursor cur = dbw.rawQuery("SELECT * FROM "+namaTable, null);
+        return cur;
+    }
+	public Cursor baca(String sn) {
+        Cursor cur = dbw.rawQuery("SELECT * FROM "+namaTable+" WHERE sn="+sn, null);
         return cur;
     }
 }

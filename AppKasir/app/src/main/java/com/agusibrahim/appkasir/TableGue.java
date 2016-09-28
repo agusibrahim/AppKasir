@@ -18,8 +18,8 @@ public class TableGue extends SortableTableView<Produk>
 
     public TableGue(final Context context, final AttributeSet attributes, final int styleAttributes) {
         super(context, attributes, styleAttributes);
-		setColumnCount(2);
-		SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(context, "Produk", "Harga");
+		setColumnCount(3);
+		SimpleTableHeaderAdapter simpleTableHeaderAdapter = new SimpleTableHeaderAdapter(context, "Produk", "Harga","Stok");
 		simpleTableHeaderAdapter.setTextColor(ContextCompat.getColor(context, R.color.table_header_text));
 		final int rowColorEven = ContextCompat.getColor(context, R.color.table_data_row_even);
         final int rowColorOdd = ContextCompat.getColor(context, R.color.table_data_row_odd);
@@ -28,13 +28,21 @@ public class TableGue extends SortableTableView<Produk>
 		setHeaderAdapter(simpleTableHeaderAdapter);
 		setColumnComparator(1, new HargaProdukComparator());
 		setColumnComparator(0, new NamaProdukComparator());
-		
+		setColumnComparator(2, new StokProdukComparator());
 	}
 	private static class HargaProdukComparator implements Comparator<Produk> {
         @Override
         public int compare(Produk prod1, Produk prod2) {
             if (prod1.getHarga() < prod2.getHarga()) return -1;
             if (prod1.getHarga() > prod2.getHarga()) return 1;
+            return 0;
+        }
+	}
+	private static class StokProdukComparator implements Comparator<Produk> {
+        @Override
+        public int compare(Produk prod1, Produk prod2) {
+            if (prod1.getStok() < prod2.getStok()) return -1;
+            if (prod1.getStok()> prod2.getStok()) return 1;
             return 0;
         }
 	}

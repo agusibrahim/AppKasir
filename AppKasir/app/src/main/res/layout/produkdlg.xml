@@ -17,7 +17,8 @@
 			android:layout_width="match_parent"
 			android:ems="10"
 			android:hint="Nama Produk"
-			android:id="@+id/namaproduk"/>
+			android:id="@+id/namaproduk"
+			android:singleLine="true"/>
 
 	</android.support.design.widget.TextInputLayout>
 
@@ -62,6 +63,20 @@
 			android:ems="10"
 			android:hint="Harga"
 			android:id="@+id/harga"/>
+
+	</android.support.design.widget.TextInputLayout>
+
+	<android.support.design.widget.TextInputLayout
+		android:layout_width="100dp"
+		android:layout_height="wrap_content">
+
+		<EditText
+			android:layout_height="wrap_content"
+			android:inputType="numberSigned"
+			android:layout_width="match_parent"
+			android:ems="10"
+			android:hint="Stok"
+			android:id="@+id/stok"/>
 
 	</android.support.design.widget.TextInputLayout>
 

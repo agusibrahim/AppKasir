@@ -10,7 +10,7 @@ import com.agusibrahim.appkasir.*;
 
 public class ProdukDataAdapter extends TableDataAdapter
 {
-	private static final NumberFormat PRICE_FORMATTER = NumberFormat.getNumberInstance();
+	public static final NumberFormat PRICE_FORMATTER = NumberFormat.getNumberInstance();
 	public ProdukDataAdapter(Context ctx, ArrayList<Produk> prod){
 		super(ctx, prod);
 	}
@@ -25,11 +25,24 @@ public class ProdukDataAdapter extends TableDataAdapter
 			case 1:
 				render=renderString("Rp. "+PRICE_FORMATTER.format(produk.getHarga()));
 				break;
+			case 2:
+				render=renderString(""+produk.getStok());
+				break;
 		}
 		return render;
 	}
+	private int getpos(Produk p){
+		int pos = -1;
+		for(Produk pp:getData()){
+			if(pp.getSn().equals(p.getSn())){
+				pos=getData().indexOf(pp);
+				break;
+			}
+		}
+		return pos;
+	}
 	public void tambah(ContentValues val){
-		getData().add(new Produk(val.getAsString("nama"), val.getAsString("sn"), val.getAsLong("harga")));
+		getData().add(new Produk(val.getAsString("nama"), val.getAsString("sn"), val.getAsLong("harga"), val.getAsInteger("stok")));
 		new DBHelper(getContext()).tambah(val);
 		notifyDataSetChanged();
 	}
@@ -39,8 +52,13 @@ public class ProdukDataAdapter extends TableDataAdapter
 		notifyDataSetChanged();
 	}
 	public void perbarui(Produk produk, ContentValues newdata){
-		int idx=getData().indexOf(produk);
-		getData().set(idx, new Produk(newdata.getAsString("nama"), newdata.getAsString("sn"), newdata.getAsLong("harga")));
+		int idx=getpos(produk);//getData().indexOf(produk);
+		if(idx>=0){
+			
+		}else{
+			return;
+		}
+		getData().set(idx, new Produk(newdata.getAsString("nama"), newdata.getAsString("sn"), newdata.getAsLong("harga"), newdata.getAsInteger("stok")));
 		new DBHelper(getContext()).update(newdata, produk.getSn());
 		notifyDataSetChanged();
 	}

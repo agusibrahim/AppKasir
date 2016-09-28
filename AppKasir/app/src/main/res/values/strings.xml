@@ -3,5 +3,6 @@
 
     <string name="app_name">AppKasir</string>
     <string name="hello_world">Hello world!</string>
-
+	<string name="drawer_buka">Buka</string>
+	<string name="drawer_tutup">Tutup</string>
 </resources>

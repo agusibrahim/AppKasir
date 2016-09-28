@@ -22,5 +22,7 @@ android {
 dependencies {
 	compile 'com.android.support:design:23.4.0'
 	compile 'de.codecrafters.tableview:tableview:2.2.2'
+	compile 'com.github.Kennyc1012:BottomSheet:2.3.1'
+	compile 'com.journeyapps:zxing-android-embedded:+'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
