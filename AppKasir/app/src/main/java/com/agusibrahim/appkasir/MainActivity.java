@@ -106,4 +106,11 @@ public class MainActivity extends AppCompatActivity
 		return true;
 	}
 
+	@Override
+	protected void onDestroy() {
+		
+		dataBalanjaan.total=0;
+		super.onDestroy();
+	}
+	
 }
