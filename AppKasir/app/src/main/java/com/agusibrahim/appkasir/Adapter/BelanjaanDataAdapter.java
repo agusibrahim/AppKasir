@@ -47,6 +47,13 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		}
 		return pp;
 	}
+	public void updateTotal(){
+		long jm=0;
+		for(Belanjaan b:getData()){
+			jm=jm+(b.getProduk().getHarga()*b.getQuantity());
+		}
+		total=jm;
+	}
 	public void tambah(Produk prod, int quantity){
 		Belanjaan bel=getBelBySN(prod.getSn());
 		// jika produk sudah ada dalam keranjang
@@ -54,19 +61,19 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		if(bel!=null){
 			int prodquantity=bel.getQuantity()+quantity;
 			getData().set(getData().indexOf(bel), new Belanjaan(prod, prodquantity));
-			total=total-bel.getProduk().getHarga();
-			total=total+(bel.getProduk().getHarga()*prodquantity);
 		}else{
 			// jika tidak ada dalam keranjang
 			// maka masukan ke keranjang
 			getData().add(new Belanjaan(prod, quantity));
-			total=total+prod.getHarga();
 		}
+		// update total belanja
+		updateTotal();
 		notifyDataSetChanged();
 	}
 	public void hapus(Produk produk){
 		getData().remove(produk);
-		total=total-produk.getHarga();
+		// update total belanja
+		updateTotal();
 		notifyDataSetChanged();
 	}
 	private View renderString(final String value) {
