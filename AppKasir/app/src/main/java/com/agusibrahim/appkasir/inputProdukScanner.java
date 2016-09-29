@@ -13,37 +13,59 @@ import com.agusibrahim.appkasir.Adapter.*;
 import android.os.*;
 import com.agusibrahim.appkasir.Fragment.*;
 
-public class inputProdukScanner
-{
+public class inputProdukScanner {
 	Context ctx;
 	DecoratedBarcodeView barcodeView;
 	InputMethodManager imm;
 	private Produk produk_terindentifikasi=null;
-	private Produk scannedProduct=null;
-	public inputProdukScanner(Context ctx){
-		this.ctx=ctx;
+	AlertDialog.Builder dlg;
+	boolean lampufles=false;
+	public inputProdukScanner(Context ctx) {
+		this.ctx = ctx;
 		this.imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+		dlg = new AlertDialog.Builder(ctx);
 	}
-	public void shoping(){
+	public void setupScanner() {
+		barcodeView.setStatusText("Arahkan ke barcode");
+		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
+		formatList.add(BarcodeFormat.EAN_13);
+		barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
+		// Toggle flashlight saat viewfinder barcode disentuh
+		barcodeView.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View p1) {
+					if (lampufles) barcodeView.setTorchOff();
+					else barcodeView.setTorchOn();
+				}
+			});
+		barcodeView.setTorchListener(new DecoratedBarcodeView.TorchListener(){
+
+				@Override
+				public void onTorchOn() {
+					lampufles = true;
+				}
+
+				@Override
+				public void onTorchOff() {
+					lampufles = false;
+				}
+			});
+	}
+	public void shoping() {
 		View v=LayoutInflater.from(ctx).inflate(R.layout.shopingscanner, null);
 		final TextView namaproduk=(TextView) v.findViewById(R.id.scanNamaProduk);
 		final TextView hargaproduk=(TextView) v.findViewById(R.id.scanHargaProduk);
 		final TextView snProduk=(TextView) v.findViewById(R.id.scanSN);
 		final CheckBox tanpakonf=(CheckBox) v.findViewById(R.id.autoaddcheck);
-		final DecoratedBarcodeView shopcam = (DecoratedBarcodeView) v.findViewById(R.id.scannershop);
-		shopcam.setStatusText("Arahkan ke barcode");
-		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
-		formatList.add(BarcodeFormat.EAN_13);
-		shopcam.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
-		AlertDialog.Builder dlg=new AlertDialog.Builder(ctx);
+		barcodeView = (DecoratedBarcodeView) v.findViewById(R.id.scannershop);
+		setupScanner();
 		dlg.setView(v);
 		dlg.setTitle("Pemindai Barcode");
 		dlg.setCancelable(false);
-		
 		dlg.setNegativeButton("Selesai", new DialogInterface.OnClickListener(){
 				@Override
 				public void onClick(DialogInterface p1, int p2) {
-					shopcam.pause();
+					barcodeView.pause();
 				}
 			});
 		// ini hanya buat nampilin tombol "Tambahkan" pada dialog
@@ -61,7 +83,7 @@ public class inputProdukScanner
 		tanpakonf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
 				@Override
 				public void onCheckedChanged(CompoundButton p1, boolean checked) {
-					if(checked) okBtn.setEnabled(false);
+					if (checked) okBtn.setEnabled(false);
 					else okBtn.setEnabled(true);
 				}
 			});
@@ -69,36 +91,37 @@ public class inputProdukScanner
 		okBtn.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
-					MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
-					belanjaFragment.totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+					belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 				}
 			});
-		shopcam.decodeContinuous(new BarcodeCallback(){
+
+		barcodeView.decodeContinuous(new BarcodeCallback(){
 				@Override
 				public void barcodeResult(BarcodeResult result) {
-					scannedProduct=Produk.getBySN(ctx, result.getText());
+					produk_terindentifikasi = Produk.getBySN(ctx, result.getText());
 					// Jika produk kedaftar di Database produk
 					// Kalo ngga ya diem
-					if(scannedProduct!=null){
-						namaproduk.setText(scannedProduct.getNama());
-						hargaproduk.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format( scannedProduct.getHarga()));
+					if (produk_terindentifikasi != null) {
+						namaproduk.setText(produk_terindentifikasi.getNama());
+						hargaproduk.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(produk_terindentifikasi.getHarga()));
 						snProduk.setText(result.getText());
 						namaproduk.setVisibility(View.VISIBLE);
 						hargaproduk.setVisibility(View.VISIBLE);
 						// Jika mode otomatis (tanpa konfirm) di cek
-						if(tanpakonf.isChecked()){
+						if (tanpakonf.isChecked()) {
 							okBtn.setEnabled(false);
-							MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
-							belanjaFragment.totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
-							shopcam.pause();
+							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+							belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+							barcodeView.pause();
 							Handler handler = new Handler();
 							handler.postDelayed(new Runnable() {
 									@Override
 									public void run() {
-										shopcam.resume();
+										barcodeView.resume();
 									}
 								}, 2000);
-						}else{
+						} else {
 							okBtn.setEnabled(true);
 						}
 					}
@@ -108,9 +131,9 @@ public class inputProdukScanner
 				public void possibleResultPoints(List<ResultPoint> p1) {
 				}
 			});
-		shopcam.resume();
+		barcodeView.resume();
 	}
-	public void tambahkanProduk(){
+	public void tambahkanProduk() {
 		View v=LayoutInflater.from(ctx).inflate(R.layout.inputproduk_scanner, null);
 		final EditText namaproduk=(EditText) v.findViewById(R.id.new_namaproduk);
 		final EditText hargaproduk=(EditText) v.findViewById(R.id.new_hargaproduk);
@@ -118,7 +141,7 @@ public class inputProdukScanner
 		final Button tambahkanbtn=(Button) v.findViewById(R.id.tambhakanbtn);
 		final Button cancelbtn=(Button) v.findViewById(R.id.cancelbtn);
 		final Button selesaibtn=(Button) v.findViewById(R.id.selesaibtn);
-		
+
 		namaproduk.setEnabled(false);
 		hargaproduk.setEnabled(false);
 		stokproduk.setEnabled(false);
@@ -130,13 +153,13 @@ public class inputProdukScanner
 					hargaproduk.setEnabled(true);
 					stokproduk.setEnabled(true);
 					namaproduk.requestFocus();
-					produk_terindentifikasi=Produk.getBySN(ctx, result.getText());
-					if(produk_terindentifikasi!=null){
+					produk_terindentifikasi = Produk.getBySN(ctx, result.getText());
+					if (produk_terindentifikasi != null) {
 						tambahkanbtn.setText("Perbarui");
 						namaproduk.setText(produk_terindentifikasi.getNama());
-						hargaproduk.setText(""+produk_terindentifikasi.getHarga());
-						stokproduk.setText(""+produk_terindentifikasi.getStok());
-					}else{
+						hargaproduk.setText("" + produk_terindentifikasi.getHarga());
+						stokproduk.setText("" + produk_terindentifikasi.getStok());
+					} else {
 						tambahkanbtn.setText("Tambahkan");
 					}
 					imm.showSoftInput(namaproduk, InputMethodManager.SHOW_IMPLICIT);
@@ -148,11 +171,7 @@ public class inputProdukScanner
 			}
 		};
 		barcodeView = (DecoratedBarcodeView) v.findViewById(R.id.scanner);
-		barcodeView.setStatusText("Arahkan ke barcode");
-		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
-		formatList.add(BarcodeFormat.EAN_13);
-		barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
-		AlertDialog.Builder dlg=new AlertDialog.Builder(ctx);
+		setupScanner();
 		dlg.setView(v);
 		dlg.setCancelable(false);
 		dlg.setTitle("Tambahkan Produk");
@@ -170,7 +189,7 @@ public class inputProdukScanner
 					dialog.dismiss();
 				}
 			});
-			
+
 		tambahkanbtn.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
@@ -179,7 +198,7 @@ public class inputProdukScanner
 					data.put("sn", barcodeView.getStatusView().getText().toString());
 					data.put("harga", Long.parseLong(hargaproduk.getText().toString()));
 					data.put("stok", Integer.parseInt(stokproduk.getText().toString()));
-					if(produk_terindentifikasi==null) MainActivity.dataproduk.tambah(data);
+					if (produk_terindentifikasi == null) MainActivity.dataproduk.tambah(data);
 					else MainActivity.dataproduk.perbarui(produk_terindentifikasi, data);
 					imm.hideSoftInputFromWindow(namaproduk.getWindowToken(), 0);
 					namaproduk.setText("");
@@ -201,10 +220,10 @@ public class inputProdukScanner
 			public void onTextChanged(CharSequence p1, int p2, int p3, int p4) {
 				String s=stokproduk.getText().toString();
 				int stok=0;
-				if(s.length()>0){
-					stok=Integer.parseInt(s);
+				if (s.length() > 0) {
+					stok = Integer.parseInt(s);
 				}
-				if(namaproduk.getText().length()>3&&stok>0&&hargaproduk.getText().length()>2) tambahkanbtn.setEnabled(true);
+				if (namaproduk.getText().length() > 3 && stok > 0 && hargaproduk.getText().length() > 2) tambahkanbtn.setEnabled(true);
 				else tambahkanbtn.setEnabled(false);
 			}
 			@Override
