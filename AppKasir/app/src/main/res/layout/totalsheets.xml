@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	xmlns:app="http://schemas.android.com/apk/res-auto"
+	android:id="@+id/bottomSheet"
+	android:layout_width="match_parent"
+	android:layout_height="300dp"
+	app:behavior_hideable="true"
+	app:behavior_peekHeight="50dp"
+	app:layout_behavior="@string/bottom_sheet_behavior"
+	android:background="@color/primary">
+
+	<LinearLayout
+		android:layout_height="50dp"
+		android:layout_width="match_parent"
+		android:id="@+id/caps"
+		android:orientation="horizontal"
+		android:background="@color/primary_dark"
+		android:padding="10dp">
+
+		<TextView
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:text="TOTAL"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:textColor="#FFFFFF"/>
+
+		<TextView
+			android:layout_height="wrap_content"
+			android:textAppearance="?android:attr/textAppearanceMedium"
+			android:layout_width="wrap_content"
+			android:text="Rp. 123.000"
+			android:textColor="#FFFFFF"
+			android:textStyle="bold"
+			android:layout_marginLeft="40dp"
+			android:id="@+id/totaljumlah"/>
+
+	</LinearLayout>
+
+	<TextView
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_below="@id/caps"
+		android:layout_centerHorizontal="true"
+		android:text="Hello World!"
+		android:textAppearance="@android:style/TextAppearance.Large"
+		android:layout_marginTop="100dp"
+		android:textColor="#FFFFFF"
+		android:id="@+id/totalsheetsTextView1"/>
+
+</RelativeLayout>
+

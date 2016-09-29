@@ -18,12 +18,17 @@
 			table:tableView_headerColor="@color/primary"/>
 
 	</RelativeLayout>
+	<include layout="@layout/totalsheets"
+		android:id="@+id/bottomSheet"
+		/>
 	<android.support.design.widget.FloatingActionButton
-		android:id="@+id/fab"
+		android:id="@+id/fab_shopping"
 		android:layout_width="wrap_content"
 		android:layout_height="wrap_content"
-		android:layout_gravity="end|bottom"
-		android:layout_margin="16dp"
+		app:layout_anchorGravity="top|right|end"
+		android:layout_margin="20dp"
+		app:layout_anchor="@id/bottomSheet"
 		android:src="@drawable/ic_basket" />
+	
 </android.support.design.widget.CoordinatorLayout>
 
