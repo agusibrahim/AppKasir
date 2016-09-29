@@ -25,12 +25,8 @@ public class ProdukDialog
 			harga.setText(""+dataset.getHarga());
 			stok.setText(""+dataset.getStok());
 			positiveTxt="Perbarui";
-			dlg.setNeutralButton("Hapus", new DialogInterface.OnClickListener(){
-					@Override
-					public void onClick(DialogInterface p1, int p2) {
-						MainActivity.dataproduk.hapus(dataset);
-					}
-				});
+			
+			dlg.setNeutralButton("Hapus", null);
 		}
 		dlg.setView(form);
 		dlg.setTitle(positiveTxt+" Produk");
@@ -54,6 +50,23 @@ public class ProdukDialog
 		dlg.setNegativeButton("Batal", null);
 		final AlertDialog dialog=dlg.create();
 		dialog.show();
+		// Override tombol Hapus
+		Button hapusBtn=dialog.getButton(AlertDialog.BUTTON3);
+		hapusBtn.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View p1) {
+					Toast.makeText(p1.getContext(), "Tekan lama untuk menghapus", Toast.LENGTH_LONG).show();
+				}
+			});
+		hapusBtn.setOnLongClickListener(new View.OnLongClickListener(){
+				@Override
+				public boolean onLongClick(View p1) {
+					MainActivity.dataproduk.hapus(dataset);
+					dialog.dismiss();
+					Toast.makeText(p1.getContext(), "Terhapus", Toast.LENGTH_SHORT).show();
+					return false;
+				}
+			});
 		// Dibawah ini adalah fungsi agar Button OK di disable jika data belum terisi atau jumlahnya kurang dari kriteria yang ditentukan
 		// Gunakan textWatcher disetiap kolom
 		final Button btn= dialog.getButton(AlertDialog.BUTTON1);

@@ -26,6 +26,7 @@ import com.agusibrahim.appkasir.*;
 public class productFragment extends Fragment 
 {
 	FloatingActionButton fab_addbtn;
+	CoordinatorLayout mycoor;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=inflater.inflate(R.layout.myproduct, container, false);
@@ -70,6 +71,12 @@ public class productFragment extends Fragment
 			});
 		return v;
 	}
+
+	@Override
+	public void onViewCreated(View view, Bundle savedInstanceState) {
+		super.onViewCreated(view, savedInstanceState);
+		mycoor=(CoordinatorLayout) view.findViewById(R.id.myproductCoordinatorLayout1);
+	}
 	
     
 	private class DataClickListener implements TableDataClickListener<Produk> {
@@ -89,13 +96,18 @@ public class productFragment extends Fragment
 						switch(menu.getItemId()){
 							case R.id.addtoproduct:
 								MainActivity.dataBalanjaan.tambah(clickedData, 1);
-								
 								break;
 							case R.id.menuedit:
 								new ProdukDialog(getActivity(), clickedData);
 								break;
 							case R.id.menudelete:
-								MainActivity.dataproduk.hapus(clickedData);
+								Snackbar.make(mycoor, "Tekan Hapus mengkonfirmasi", Snackbar.LENGTH_LONG)
+									.setAction("Hapus", new View.OnClickListener(){
+										@Override
+										public void onClick(View p1) {
+											MainActivity.dataproduk.hapus(clickedData);
+										}
+									}).show();
 								break;
 						}
 					}
