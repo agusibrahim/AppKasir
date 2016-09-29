@@ -37,6 +37,7 @@ public class MainActivity extends AppCompatActivity
 		mDrawer.addDrawerListener(drawerToggle);
 		getSupportFragmentManager().beginTransaction().replace(R.id.konten, new belanjaFragment()).commit();
 		nvDrawer.getMenu().getItem(0).setChecked(true);
+		setTitle("Belanja");
 		dataproduk=new ProdukDataAdapter(this, Produk.getInit(this));
 		dataBalanjaan=new BelanjaanDataAdapter(this);
     }
