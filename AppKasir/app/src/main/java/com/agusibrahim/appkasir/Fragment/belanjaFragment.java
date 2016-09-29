@@ -14,7 +14,8 @@ import android.widget.*;
 
 public class belanjaFragment extends Fragment
 {
-	private BottomSheetBehavior bottomSheetBehavior;
+	public static TextView totaljum;
+	public static BottomSheetBehavior bottomSheetBehavior;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=inflater.inflate(R.layout.belanja, container, false);
@@ -28,7 +29,7 @@ public class belanjaFragment extends Fragment
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
 		FloatingActionButton fabshop=(FloatingActionButton) view.findViewById(R.id.fab_shopping);
-		TextView totaljum=(TextView) view.findViewById(R.id.totaljumlah);
+		totaljum=(TextView) view.findViewById(R.id.totaljumlah);
 		bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottomSheet));
 		
 		fabshop.setOnClickListener(new View.OnClickListener(){

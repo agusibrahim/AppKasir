@@ -11,6 +11,7 @@ import com.agusibrahim.appkasir.Model.*;
 import android.support.v7.app.AlertDialog;
 import com.agusibrahim.appkasir.Adapter.*;
 import android.os.*;
+import com.agusibrahim.appkasir.Fragment.*;
 
 public class inputProdukScanner
 {
@@ -54,6 +55,7 @@ public class inputProdukScanner
 				}
 			});
 		AlertDialog dialog=dlg.show();
+		// tombol positive (Tambahkan)
 		final Button okBtn=dialog.getButton(AlertDialog.BUTTON1);
 		okBtn.setEnabled(false);
 		tanpakonf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
@@ -68,6 +70,7 @@ public class inputProdukScanner
 				@Override
 				public void onClick(View p1) {
 					MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
+					belanjaFragment.totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 				}
 			});
 		shopcam.decodeContinuous(new BarcodeCallback(){
@@ -86,6 +89,7 @@ public class inputProdukScanner
 						if(tanpakonf.isChecked()){
 							okBtn.setEnabled(false);
 							MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
+							belanjaFragment.totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 							shopcam.pause();
 							Handler handler = new Handler();
 							handler.postDelayed(new Runnable() {
