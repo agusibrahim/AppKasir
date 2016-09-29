@@ -82,7 +82,6 @@ public class productFragment extends Fragment
 	private class DataClickListener implements TableDataClickListener<Produk> {
         @Override
         public void onDataClicked(int rowIndex, final Produk clickedData) {
-            final String carString = clickedData.getNama()+" Harganya "+clickedData.getHarga();
 			new BottomSheet.Builder(getActivity())
 				.setSheet(R.menu.popupmenu)
 				.setTitle(clickedData.getNama()+" - (Rp. "+ProdukDataAdapter.PRICE_FORMATTER.format( clickedData.getHarga())+")")
@@ -106,6 +105,7 @@ public class productFragment extends Fragment
 										@Override
 										public void onClick(View p1) {
 											MainActivity.dataproduk.hapus(clickedData);
+											Toast.makeText(getActivity(), "Terhapus", Toast.LENGTH_SHORT).show();
 										}
 									}).show();
 								break;
