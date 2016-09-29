@@ -6,9 +6,9 @@ import com.journeyapps.barcodescanner.*;
 import android.view.inputmethod.*;
 import java.util.*;
 import com.google.zxing.*;
-import android.app.*;
 import android.text.*;
 import com.agusibrahim.appkasir.Model.*;
+import android.support.v7.app.AlertDialog;
 
 public class inputProdukScanner
 {
