@@ -7,7 +7,7 @@ import de.codecrafters.tableview.toolkit.*;
 import android.support.v4.content.*;
 import java.util.*;
 
-public class tabelBelanjaan extends SortableTableView<Produk>
+public class tabelBelanjaan extends SortableTableView<Belanjaan>
 {
 	public tabelBelanjaan(Context ctx){
 		super(ctx, null);
@@ -26,23 +26,31 @@ public class tabelBelanjaan extends SortableTableView<Produk>
         setDataRowBackgroundProvider(TableDataRowBackgroundProviders.alternatingRowColors(rowColorEven, rowColorOdd));
         setHeaderSortStateViewProvider(SortStateViewProviders.brightArrows());
 		setHeaderAdapter(simpleTableHeaderAdapter);
-		setColumnComparator(1, new HargaProdukComparator());
 		setColumnComparator(0, new NamaProdukComparator());
-
+		setColumnComparator(1, new  HargaProdukComparator());
+		setColumnComparator(2, new QnProdukComparator());
+		
 	}
-	private static class HargaProdukComparator implements Comparator<Produk> {
+	private static class HargaProdukComparator implements Comparator<Belanjaan> {
         @Override
-        public int compare(Produk prod1, Produk prod2) {
-            if (prod1.getHarga() < prod2.getHarga()) return -1;
-            if (prod1.getHarga() > prod2.getHarga()) return 1;
+        public int compare(Belanjaan prod1, Belanjaan prod2) {
+            if (prod1.getProduk().getHarga() < prod2.getProduk().getHarga()) return -1;
+            if (prod1.getProduk().getHarga() > prod2.getProduk().getHarga()) return 1;
             return 0;
         }
 	}
-	private static class NamaProdukComparator implements Comparator<Produk> {
-
+	private static class QnProdukComparator implements Comparator<Belanjaan> {
         @Override
-        public int compare(final Produk prod1, final Produk prod2) {
-            return prod1.getNama().compareTo(prod2.getNama());
+        public int compare(Belanjaan prod1, Belanjaan prod2) {
+            if (prod1.getQuantity() < prod2.getQuantity()) return -1;
+            if (prod1.getQuantity() > prod2.getQuantity()) return 1;
+            return 0;
+        }
+	}
+	private static class NamaProdukComparator implements Comparator<Belanjaan> {
+        @Override
+        public int compare(Belanjaan prod1, Belanjaan prod2) {
+            return prod1.getProduk().getNama().compareTo(prod2.getProduk().getNama());
         }
     }
 }
