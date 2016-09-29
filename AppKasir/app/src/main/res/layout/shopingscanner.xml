@@ -27,7 +27,7 @@
 		android:layout_height="wrap_content"
 		android:textAppearance="?android:attr/textAppearanceLarge"
 		android:layout_width="match_parent"
-		android:text="Rp. 123.000"
+		android:text="Rp. 0"
 		android:gravity="right"
 		android:textColor="#52B409"
 		android:textStyle="bold"
