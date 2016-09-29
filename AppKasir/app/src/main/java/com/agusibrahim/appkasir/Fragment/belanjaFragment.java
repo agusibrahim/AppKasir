@@ -14,8 +14,7 @@ import android.widget.*;
 
 public class belanjaFragment extends Fragment
 {
-	public static Snackbar totalbelanja;
-	//private static String[][] dataBelanjaan = {{"",""}};
+	private BottomSheetBehavior bottomSheetBehavior;
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 		View v=inflater.inflate(R.layout.belanja, container, false);
@@ -28,27 +27,27 @@ public class belanjaFragment extends Fragment
 	@Override
 	public void onViewCreated(View view, Bundle savedInstanceState) {
 		super.onViewCreated(view, savedInstanceState);
-		CoordinatorLayout coor=(CoordinatorLayout) view.findViewById(R.id.kor);
-		totalbelanja= Snackbar.make(coor, Html.fromHtml("TOTAL: 		<b>Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total)+"</b>"), Snackbar.LENGTH_INDEFINITE);
-		totalbelanja.setAction("Bayar", new View.OnClickListener(){
+		FloatingActionButton fabshop=(FloatingActionButton) view.findViewById(R.id.fab_shopping);
+		TextView totaljum=(TextView) view.findViewById(R.id.totaljumlah);
+		bottomSheetBehavior = BottomSheetBehavior.from(view.findViewById(R.id.bottomSheet));
+		
+		fabshop.setOnClickListener(new View.OnClickListener(){
 				@Override
-				public void onClick(View p1) {}
+				public void onClick(View p1) {
+					if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_HIDDEN){
+						bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+					}else if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
+						bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
+					}
+				}
 			});
-		// Mencegah Snackbar hilang saat tombolnya ditekan
-		// Diambil dari http://stackoverflow.com/a/39202774
-		ViewGroup group = (ViewGroup) totalbelanja.getView();
-		for(int i=0; i< group.getChildCount();i++){
-			View v = group.getChildAt(i);
-			if(v instanceof Button){
-				v.setOnClickListener(new View.OnClickListener() {
-						@Override
-						public void onClick(View v) {
-							
-						}
-					});
-			}
+		
+		if(BelanjaanDataAdapter.total!=0){
+			totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+		}else{
+			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 		}
-		if(BelanjaanDataAdapter.total!=0) totalbelanja.show();
 	}
 	
 	
