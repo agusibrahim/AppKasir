@@ -9,16 +9,102 @@ import com.google.zxing.*;
 import android.text.*;
 import com.agusibrahim.appkasir.Model.*;
 import android.support.v7.app.AlertDialog;
+import com.agusibrahim.appkasir.Adapter.*;
+import android.os.*;
 
 public class inputProdukScanner
 {
 	Context ctx;
 	DecoratedBarcodeView barcodeView;
 	InputMethodManager imm;
-	Produk produk_terindentifikasi=null;
+	private Produk produk_terindentifikasi=null;
+	private Produk scannedProduct=null;
 	public inputProdukScanner(Context ctx){
 		this.ctx=ctx;
 		this.imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
+	}
+	public void shoping(){
+		View v=LayoutInflater.from(ctx).inflate(R.layout.shopingscanner, null);
+		final TextView namaproduk=(TextView) v.findViewById(R.id.scanNamaProduk);
+		final TextView hargaproduk=(TextView) v.findViewById(R.id.scanHargaProduk);
+		final TextView snProduk=(TextView) v.findViewById(R.id.scanSN);
+		final CheckBox tanpakonf=(CheckBox) v.findViewById(R.id.autoaddcheck);
+		final DecoratedBarcodeView shopcam = (DecoratedBarcodeView) v.findViewById(R.id.scannershop);
+		shopcam.setStatusText("Arahkan ke barcode");
+		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
+		formatList.add(BarcodeFormat.EAN_13);
+		shopcam.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
+		AlertDialog.Builder dlg=new AlertDialog.Builder(ctx);
+		dlg.setView(v);
+		dlg.setTitle("Pemindai Barcode");
+		dlg.setCancelable(false);
+		
+		dlg.setNegativeButton("Selesai", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					shopcam.pause();
+				}
+			});
+		// ini hanya buat nampilin tombol "Tambahkan" pada dialog
+		// onclick sengaja ga di isi
+		// Meng-override onClick (lihat okBtn) agar saat di klik dialog kaga ngilang
+		dlg.setPositiveButton("Tambahkan", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+				}
+			});
+		AlertDialog dialog=dlg.show();
+		final Button okBtn=dialog.getButton(AlertDialog.BUTTON1);
+		okBtn.setEnabled(false);
+		tanpakonf.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener(){
+				@Override
+				public void onCheckedChanged(CompoundButton p1, boolean checked) {
+					if(checked) okBtn.setEnabled(false);
+					else okBtn.setEnabled(true);
+				}
+			});
+		// Override onClick positiveButton pada dialog, 
+		okBtn.setOnClickListener(new View.OnClickListener(){
+				@Override
+				public void onClick(View p1) {
+					MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
+				}
+			});
+		shopcam.decodeContinuous(new BarcodeCallback(){
+				@Override
+				public void barcodeResult(BarcodeResult result) {
+					scannedProduct=Produk.getBySN(ctx, result.getText());
+					// Jika produk kedaftar di Database produk
+					// Kalo ngga ya diem
+					if(scannedProduct!=null){
+						namaproduk.setText(scannedProduct.getNama());
+						hargaproduk.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format( scannedProduct.getHarga()));
+						snProduk.setText(result.getText());
+						namaproduk.setVisibility(View.VISIBLE);
+						hargaproduk.setVisibility(View.VISIBLE);
+						// Jika mode otomatis (tanpa konfirm) di cek
+						if(tanpakonf.isChecked()){
+							okBtn.setEnabled(false);
+							MainActivity.dataBalanjaan.tambah(scannedProduct, 1);
+							shopcam.pause();
+							Handler handler = new Handler();
+							handler.postDelayed(new Runnable() {
+									@Override
+									public void run() {
+										shopcam.resume();
+									}
+								}, 2000);
+						}else{
+							okBtn.setEnabled(true);
+						}
+					}
+				}
+
+				@Override
+				public void possibleResultPoints(List<ResultPoint> p1) {
+				}
+			});
+		shopcam.resume();
 	}
 	public void tambahkanProduk(){
 		View v=LayoutInflater.from(ctx).inflate(R.layout.inputproduk_scanner, null);

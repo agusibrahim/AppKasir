@@ -2526,9 +2526,10 @@ containing a value of this type.
         public static final int action_mode_bar_stub=0x7f080062;
         public static final int action_mode_close_button=0x7f080048;
         public static final int activity_chooser_view_content=0x7f080049;
-        public static final int addtoproduct=0x7f0800b7;
+        public static final int addtoproduct=0x7f0800bc;
         public static final int alertTitle=0x7f080055;
         public static final int always=0x7f080041;
+        public static final int autoaddcheck=0x7f0800aa;
         public static final int beginning=0x7f08003f;
         public static final int belanjaan=0x7f080079;
         public static final int bottom=0x7f08001c;
@@ -2537,7 +2538,7 @@ containing a value of this type.
         public static final int buttonPanel=0x7f080050;
         public static final int cancel_action=0x7f080096;
         public static final int cancelbtn=0x7f080090;
-        public static final int caps=0x7f0800a9;
+        public static final int caps=0x7f0800ae;
         public static final int center=0x7f08001d;
         public static final int centerCrop=0x7f08002e;
         public static final int center_horizontal=0x7f08001e;
@@ -2576,9 +2577,9 @@ containing a value of this type.
         public static final int fitCenter=0x7f08002f;
         public static final int fitXY=0x7f080030;
         public static final int fixed=0x7f08002c;
-        public static final int frag1=0x7f0800b0;
-        public static final int frag2=0x7f0800b1;
-        public static final int frag3=0x7f0800b2;
+        public static final int frag1=0x7f0800b5;
+        public static final int frag2=0x7f0800b6;
+        public static final int frag3=0x7f0800b7;
         public static final int grid=0x7f08007d;
         public static final int harga=0x7f0800a5;
         public static final int home=0x7f08000d;
@@ -2597,15 +2598,15 @@ containing a value of this type.
         public static final int listMode=0x7f080031;
         public static final int list_item=0x7f08004d;
         public static final int media_actions=0x7f080098;
-        public static final int menu_help=0x7f0800b5;
-        public static final int menu_setting=0x7f0800b6;
-        public static final int menudelete=0x7f0800b9;
-        public static final int menuedit=0x7f0800b8;
+        public static final int menu_help=0x7f0800ba;
+        public static final int menu_setting=0x7f0800bb;
+        public static final int menudelete=0x7f0800be;
+        public static final int menuedit=0x7f0800bd;
         public static final int message=0x7f08007e;
         public static final int middle=0x7f080040;
         public static final int mini=0x7f08002a;
         public static final int multiply=0x7f08003a;
-        public static final int mytoolbar=0x7f0800a8;
+        public static final int mytoolbar=0x7f0800ad;
         public static final int naView=0x7f080077;
         public static final int namaproduk=0x7f0800a2;
         public static final int navigation_header_container=0x7f080087;
@@ -2626,7 +2627,11 @@ containing a value of this type.
         public static final int progress_horizontal=0x7f08000f;
         public static final int radio=0x7f080060;
         public static final int right=0x7f080023;
+        public static final int scanHargaProduk=0x7f0800a9;
+        public static final int scanNamaProduk=0x7f0800a8;
+        public static final int scanSN=0x7f0800ab;
         public static final int scanner=0x7f08008c;
+        public static final int scannershop=0x7f0800a7;
         public static final int screen=0x7f08003b;
         public static final int scroll=0x7f080017;
         public static final int scrollIndicatorDown=0x7f08005a;
@@ -2652,7 +2657,7 @@ containing a value of this type.
         public static final int snackbar_action=0x7f080086;
         public static final int snackbar_text=0x7f080085;
         public static final int snap=0x7f080018;
-        public static final int sort_view=0x7f0800a7;
+        public static final int sort_view=0x7f0800ac;
         public static final int spacer=0x7f080051;
         public static final int split_action_bar=0x7f080010;
         public static final int src_atop=0x7f08003c;
@@ -2666,8 +2671,8 @@ containing a value of this type.
         public static final int tableView=0x7f080093;
         public static final int table_data_view=0x7f080012;
         public static final int table_header_view=0x7f080013;
-        public static final int tambahbanyak=0x7f0800b4;
-        public static final int tambahsatuan=0x7f0800b3;
+        public static final int tambahbanyak=0x7f0800b9;
+        public static final int tambahsatuan=0x7f0800b8;
         public static final int tambhakanbtn=0x7f080092;
         public static final int text=0x7f08009f;
         public static final int text2=0x7f08009d;
@@ -2677,8 +2682,8 @@ containing a value of this type.
         public static final int title_template=0x7f080054;
         public static final int top=0x7f080025;
         public static final int topPanel=0x7f080053;
-        public static final int totaljumlah=0x7f0800aa;
-        public static final int totalsheetsTextView1=0x7f0800ab;
+        public static final int totaljumlah=0x7f0800af;
+        public static final int totalsheetsTextView1=0x7f0800b0;
         public static final int touch_outside=0x7f080083;
         public static final int up=0x7f080011;
         public static final int useLogo=0x7f080038;
@@ -2686,16 +2691,16 @@ containing a value of this type.
         public static final int withText=0x7f080045;
         public static final int wrap_content=0x7f080039;
         public static final int zxing_back_button=0x7f080002;
-        public static final int zxing_barcode_scanner=0x7f0800af;
-        public static final int zxing_barcode_surface=0x7f0800ac;
+        public static final int zxing_barcode_scanner=0x7f0800b4;
+        public static final int zxing_barcode_surface=0x7f0800b1;
         public static final int zxing_camera_error=0x7f080003;
         public static final int zxing_decode=0x7f080004;
         public static final int zxing_decode_failed=0x7f080005;
         public static final int zxing_decode_succeeded=0x7f080006;
         public static final int zxing_possible_result_points=0x7f080007;
         public static final int zxing_prewiew_size_ready=0x7f080008;
-        public static final int zxing_status_view=0x7f0800ae;
-        public static final int zxing_viewfinder_view=0x7f0800ad;
+        public static final int zxing_status_view=0x7f0800b3;
+        public static final int zxing_viewfinder_view=0x7f0800b2;
     }
     public static final class integer {
         public static final int abc_config_activityDefaultDur=0x7f0a0003;
@@ -2764,12 +2769,13 @@ containing a value of this type.
         public static final int select_dialog_item_material=0x7f040036;
         public static final int select_dialog_multichoice_material=0x7f040037;
         public static final int select_dialog_singlechoice_material=0x7f040038;
-        public static final int sortable_header=0x7f040039;
-        public static final int support_simple_spinner_dropdown_item=0x7f04003a;
-        public static final int toolbar=0x7f04003b;
-        public static final int totalsheets=0x7f04003c;
-        public static final int zxing_barcode_scanner=0x7f04003d;
-        public static final int zxing_capture=0x7f04003e;
+        public static final int shopingscanner=0x7f040039;
+        public static final int sortable_header=0x7f04003a;
+        public static final int support_simple_spinner_dropdown_item=0x7f04003b;
+        public static final int toolbar=0x7f04003c;
+        public static final int totalsheets=0x7f04003d;
+        public static final int zxing_barcode_scanner=0x7f04003e;
+        public static final int zxing_capture=0x7f04003f;
     }
     public static final class menu {
         public static final int drawermenu=0x7f0e0000;

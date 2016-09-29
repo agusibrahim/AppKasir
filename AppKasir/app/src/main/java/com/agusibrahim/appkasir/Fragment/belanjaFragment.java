@@ -34,11 +34,7 @@ public class belanjaFragment extends Fragment
 		fabshop.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
-					if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_HIDDEN){
-						bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
-					}else if(bottomSheetBehavior.getState()==BottomSheetBehavior.STATE_COLLAPSED){
-						bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
-					}
+					new inputProdukScanner(p1.getContext()).shoping();
 				}
 			});
 		
