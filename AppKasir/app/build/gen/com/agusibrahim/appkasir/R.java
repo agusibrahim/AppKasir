@@ -2796,26 +2796,26 @@ containing a value of this type.
         public static final int zxing_beep=0x7f060000;
     }
     public static final class string {
-        public static final int abc_action_bar_home_description=0x7f0c0007;
-        public static final int abc_action_bar_home_description_format=0x7f0c0008;
-        public static final int abc_action_bar_home_subtitle_description_format=0x7f0c0009;
-        public static final int abc_action_bar_up_description=0x7f0c000a;
-        public static final int abc_action_menu_overflow_description=0x7f0c000b;
-        public static final int abc_action_mode_done=0x7f0c000c;
-        public static final int abc_activity_chooser_view_see_all=0x7f0c000d;
-        public static final int abc_activitychooserview_choose_application=0x7f0c000e;
-        public static final int abc_capital_off=0x7f0c000f;
-        public static final int abc_capital_on=0x7f0c0010;
-        public static final int abc_search_hint=0x7f0c0011;
-        public static final int abc_searchview_description_clear=0x7f0c0012;
-        public static final int abc_searchview_description_query=0x7f0c0013;
-        public static final int abc_searchview_description_search=0x7f0c0014;
-        public static final int abc_searchview_description_submit=0x7f0c0015;
-        public static final int abc_searchview_description_voice=0x7f0c0016;
-        public static final int abc_shareactionprovider_share_with=0x7f0c0017;
-        public static final int abc_shareactionprovider_share_with_application=0x7f0c0018;
-        public static final int abc_toolbar_collapse_description=0x7f0c0019;
-        public static final int app_name=0x7f0c001b;
+        public static final int abc_action_bar_home_description=0x7f0c0008;
+        public static final int abc_action_bar_home_description_format=0x7f0c0009;
+        public static final int abc_action_bar_home_subtitle_description_format=0x7f0c000a;
+        public static final int abc_action_bar_up_description=0x7f0c000b;
+        public static final int abc_action_menu_overflow_description=0x7f0c000c;
+        public static final int abc_action_mode_done=0x7f0c000d;
+        public static final int abc_activity_chooser_view_see_all=0x7f0c000e;
+        public static final int abc_activitychooserview_choose_application=0x7f0c000f;
+        public static final int abc_capital_off=0x7f0c0010;
+        public static final int abc_capital_on=0x7f0c0011;
+        public static final int abc_search_hint=0x7f0c0012;
+        public static final int abc_searchview_description_clear=0x7f0c0013;
+        public static final int abc_searchview_description_query=0x7f0c0014;
+        public static final int abc_searchview_description_search=0x7f0c0015;
+        public static final int abc_searchview_description_submit=0x7f0c0016;
+        public static final int abc_searchview_description_voice=0x7f0c0017;
+        public static final int abc_shareactionprovider_share_with=0x7f0c0018;
+        public static final int abc_shareactionprovider_share_with_application=0x7f0c0019;
+        public static final int abc_toolbar_collapse_description=0x7f0c001a;
+        public static final int app_name=0x7f0c0003;
         public static final int appbar_scrolling_view_behavior=0x7f0c0000;
         public static final int bottom_sheet_behavior=0x7f0c0001;
         public static final int character_counter_pattern=0x7f0c0002;
@@ -2825,11 +2825,11 @@ containing a value of this type.
         public static final int drawer_tutup=0x7f0c0021;
         public static final int hello_world=0x7f0c001f;
         public static final int sortable_indicator_content_description=0x7f0c001e;
-        public static final int status_bar_notification_info_overflow=0x7f0c001a;
-        public static final int zxing_app_name=0x7f0c0003;
-        public static final int zxing_button_ok=0x7f0c0004;
-        public static final int zxing_msg_camera_framework_bug=0x7f0c0005;
-        public static final int zxing_msg_default_status=0x7f0c0006;
+        public static final int status_bar_notification_info_overflow=0x7f0c001b;
+        public static final int zxing_app_name=0x7f0c0004;
+        public static final int zxing_button_ok=0x7f0c0005;
+        public static final int zxing_msg_camera_framework_bug=0x7f0c0006;
+        public static final int zxing_msg_default_status=0x7f0c0007;
     }
     public static final class style {
         public static final int AlertDialog_AppCompat=0x7f0900b6;

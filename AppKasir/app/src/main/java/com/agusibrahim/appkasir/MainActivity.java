@@ -15,6 +15,10 @@ import com.agusibrahim.appkasir.Fragment.*;
 import com.agusibrahim.appkasir.Model.Produk;
 import java.util.*;
 import com.agusibrahim.appkasir.Adapter.*;
+import kr.co.namee.permissiongen.*;
+import android.*;
+import android.support.v7.app.AlertDialog;
+import android.content.*;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -38,9 +42,20 @@ public class MainActivity extends AppCompatActivity
 		getSupportFragmentManager().beginTransaction().replace(R.id.konten, new belanjaFragment()).commit();
 		nvDrawer.getMenu().getItem(0).setChecked(true);
 		setTitle("Belanja");
+		reqPerms();
 		dataproduk=new ProdukDataAdapter(this, Produk.getInit(this));
 		dataBalanjaan=new BelanjaanDataAdapter(this);
     }
+	
+	private void reqPerms(){
+		PermissionGen.with(MainActivity.this)
+			.addRequestCode(100)
+			.permissions(
+			Manifest.permission.CAMERA,
+			Manifest.permission.READ_EXTERNAL_STORAGE,
+			Manifest.permission.WRITE_EXTERNAL_STORAGE)
+			.request();
+	}
 	private void setupDrawer(NavigationView nview){
 		nview.setNavigationItemSelectedListener(
 			new NavigationView.OnNavigationItemSelectedListener(){
@@ -106,7 +121,28 @@ public class MainActivity extends AppCompatActivity
 		getMenuInflater().inflate(R.menu.mainmenu, menu);
 		return true;
 	}
-
+	@PermissionSuccess(requestCode = 100)
+	public void doSomething(){
+		// Lakukan sesuatu disini
+	}
+	@PermissionFail(requestCode = 100)
+	public void doFailSomething(){
+		AlertDialog.Builder dlg=new AlertDialog.Builder(this);
+		dlg.setTitle("Perijinan ditolak");
+		dlg.setCancelable(false);
+		dlg.setMessage("Untuk menggunakan Aplikasi ini kamu perlu membolehkan beberapa perijinan yang diajukan. Atau Aplikasi ini tidak bisa digunakan");
+		dlg.setNegativeButton("Keluar", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					MainActivity.this.finish();
+				}
+			});
+		dlg.show();
+	}
+	@Override public void onRequestPermissionsResult(int requestCode, String[] permissions,
+													 int[] grantResults) {
+		PermissionGen.onRequestPermissionsResult(this, requestCode, permissions, grantResults);
+	}
 	@Override
 	protected void onDestroy() {
 		
