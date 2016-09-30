@@ -100,7 +100,7 @@ public class productFragment extends Fragment
 								new ProdukDialog(getActivity(), clickedData);
 								break;
 							case R.id.menudelete:
-								Snackbar.make(mycoor, "Tekan Hapus mengkonfirmasi", Snackbar.LENGTH_LONG)
+								Snackbar.make(mycoor, "Tekan Hapus untuk mengkonfirmasi", Snackbar.LENGTH_LONG)
 									.setAction("Hapus", new View.OnClickListener(){
 										@Override
 										public void onClick(View p1) {

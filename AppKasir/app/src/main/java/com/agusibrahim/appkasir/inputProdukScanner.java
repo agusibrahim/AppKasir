@@ -71,11 +71,7 @@ public class inputProdukScanner {
 		// ini hanya buat nampilin tombol "Tambahkan" pada dialog
 		// onclick sengaja ga di isi
 		// Meng-override onClick (lihat okBtn) agar saat di klik dialog kaga ngilang
-		dlg.setPositiveButton("Tambahkan", new DialogInterface.OnClickListener(){
-				@Override
-				public void onClick(DialogInterface p1, int p2) {
-				}
-			});
+		dlg.setPositiveButton("Tambahkan", null);
 		AlertDialog dialog=dlg.show();
 		// tombol positive (Tambahkan)
 		final Button okBtn=dialog.getButton(AlertDialog.BUTTON1);
@@ -92,6 +88,7 @@ public class inputProdukScanner {
 				@Override
 				public void onClick(View p1) {
 					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+					// Update totalJumalah di BottomSheet
 					belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 				}
 			});
@@ -112,7 +109,11 @@ public class inputProdukScanner {
 						if (tanpakonf.isChecked()) {
 							okBtn.setEnabled(false);
 							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+							// Update totalJumalah di BottomSheet
 							belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+							// Pause dulu kamera jika sudah berhasil mengidentifikasi produk
+							// setelah 2dtk baru di resume
+							// ini utk menghindari scan beruntun, dlm waktu 2dtk jauhkan barcode dari kamera atau aplikasi akan mengupdate status Quantity-nya
 							barcodeView.pause();
 							Handler handler = new Handler();
 							handler.postDelayed(new Runnable() {
