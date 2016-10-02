@@ -1,4 +1,4 @@
-package com.agusibrahim.appkasir;
+package com.agusibrahim.appkasir.Widget;
 import android.content.*;
 import android.support.v7.app.*;
 import android.view.*;
@@ -6,6 +6,7 @@ import android.widget.*;
 import com.agusibrahim.appkasir.Model.*;
 import android.text.*;
 import com.agusibrahim.appkasir.Fragment.productFragment;
+import com.agusibrahim.appkasir.*;
 
 public class ProdukDialog
 {

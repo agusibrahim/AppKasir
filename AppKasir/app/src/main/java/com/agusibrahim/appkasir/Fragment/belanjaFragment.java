@@ -2,7 +2,6 @@ package com.agusibrahim.appkasir.Fragment;
 import android.support.v4.app.*;
 import android.os.*;
 import android.view.*;
-import com.agusibrahim.appkasir.R;
 import com.agusibrahim.appkasir.*;
 import com.agusibrahim.appkasir.Adapter.*;
 import de.codecrafters.tableview.toolkit.*;
@@ -11,6 +10,10 @@ import com.agusibrahim.appkasir.Model.Produk;
 import android.support.design.widget.*;
 import android.text.*;
 import android.widget.*;
+import com.agusibrahim.appkasir.Widget.*;
+import de.codecrafters.tableview.listeners.*;
+import com.agusibrahim.appkasir.Model.*;
+import android.support.v7.app.AlertDialog;
 
 public class belanjaFragment extends Fragment
 {
@@ -21,7 +24,8 @@ public class belanjaFragment extends Fragment
 		View v=inflater.inflate(R.layout.belanja, container, false);
 		tabelBelanjaan velanjaan=(tabelBelanjaan) v.findViewById(R.id.belanjaan);
 		velanjaan.setDataAdapter(MainActivity.dataBalanjaan);
-		
+		velanjaan.addDataClickListener(new DtaClickListener());
+		velanjaan.addDataLongClickListener(new DataLongClickListener());
 		return v;
 	}
 
@@ -46,6 +50,20 @@ public class belanjaFragment extends Fragment
 			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);
 		}
 	}
-	
+	private class DtaClickListener implements TableDataClickListener<Belanjaan> {
+		@Override
+		public void onDataClicked(int p1, Belanjaan belanjaan) {
+			
+			//new inputProdukScanner(getActivity()).shoping();
+			new EditorDialog(getActivity(), belanjaan, totaljum);
+		}
+    }
+	private class DataLongClickListener implements TableDataLongClickListener<Belanjaan> {
+        @Override
+        public boolean onDataLongClicked(int rowIndex, Belanjaan belanjaan) {
+            //showdlg(belanjaan.getProduk().getNama(), belanjaan.getProduk().getHarga(), belanjaan.getQuantity());
+			return true;
+        }
+    }
 	
 }

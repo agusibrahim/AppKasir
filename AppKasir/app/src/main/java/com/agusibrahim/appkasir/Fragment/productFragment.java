@@ -14,14 +14,13 @@ import android.support.v4.content.*;
 import android.view.*;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.Toolbar;
-import com.agusibrahim.appkasir.TableGue;
-import com.agusibrahim.appkasir.ProdukDialog;
 import com.agusibrahim.appkasir.MainActivity;
 import android.support.design.widget.*;
 import com.kennyc.bottomsheet.*;
 import com.agusibrahim.appkasir.R;
 import android.content.*;
 import com.agusibrahim.appkasir.*;
+import com.agusibrahim.appkasir.Widget.*;
 
 public class productFragment extends Fragment 
 {
@@ -94,7 +93,7 @@ public class productFragment extends Fragment
 					public void onSheetItemSelected(BottomSheet p1, MenuItem menu) {
 						switch(menu.getItemId()){
 							case R.id.addtoproduct:
-								MainActivity.dataBalanjaan.tambah(clickedData, 1);
+								MainActivity.dataBalanjaan.tambah(clickedData, -1);
 								break;
 							case R.id.menuedit:
 								new ProdukDialog(getActivity(), clickedData);

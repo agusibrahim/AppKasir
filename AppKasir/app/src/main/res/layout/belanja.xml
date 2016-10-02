@@ -6,21 +6,17 @@
 	android:layout_height="fill_parent"
 	android:id="@+id/kor">
 
-	<RelativeLayout
-		android:layout_width="fill_parent"
-		android:layout_height="match_parent">
+	<com.agusibrahim.appkasir.tabelBelanjaan
+		xmlns:table="http://schemas.android.com/apk/res-auto"
+		android:id="@+id/belanjaan"
+		android:layout_width="match_parent"
+		android:layout_height="match_parent"
+		table:tableView_headerColor="@color/primary"/>
 
-		<com.agusibrahim.appkasir.tabelBelanjaan
-			xmlns:table="http://schemas.android.com/apk/res-auto"
-			android:id="@+id/belanjaan"
-			android:layout_width="match_parent"
-			android:layout_height="match_parent"
-			table:tableView_headerColor="@color/primary"/>
 
-	</RelativeLayout>
 	<include layout="@layout/totalsheets"
 		android:id="@+id/bottomSheet"
-		/>
+	/>
 	<android.support.design.widget.FloatingActionButton
 		android:id="@+id/fab_shopping"
 		android:layout_width="wrap_content"
@@ -29,6 +25,6 @@
 		android:layout_margin="20dp"
 		app:layout_anchor="@id/bottomSheet"
 		android:src="@drawable/ic_basket" />
-	
+
 </android.support.design.widget.CoordinatorLayout>
 

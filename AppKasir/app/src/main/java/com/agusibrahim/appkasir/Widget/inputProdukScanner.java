@@ -1,4 +1,4 @@
-package com.agusibrahim.appkasir;
+package com.agusibrahim.appkasir.Widget;
 import android.content.*;
 import android.view.*;
 import android.widget.*;
@@ -12,6 +12,7 @@ import android.support.v7.app.AlertDialog;
 import com.agusibrahim.appkasir.Adapter.*;
 import android.os.*;
 import com.agusibrahim.appkasir.Fragment.*;
+import com.agusibrahim.appkasir.*;
 
 public class inputProdukScanner {
 	Context ctx;
@@ -87,7 +88,7 @@ public class inputProdukScanner {
 		okBtn.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
-					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 					// Update totalJumalah di BottomSheet
 					belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 				}
@@ -108,7 +109,7 @@ public class inputProdukScanner {
 						// Jika mode otomatis (tanpa konfirm) di cek
 						if (tanpakonf.isChecked()) {
 							okBtn.setEnabled(false);
-							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, 1);
+							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 							// Update totalJumalah di BottomSheet
 							belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 							// Pause dulu kamera jika sudah berhasil mengidentifikasi produk

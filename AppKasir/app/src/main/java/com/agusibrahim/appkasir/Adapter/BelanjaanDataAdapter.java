@@ -59,11 +59,13 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		// jika produk sudah ada dalam keranjang
 		// maka tambahkan quantity
 		if(bel!=null){
-			int prodquantity=bel.getQuantity()+quantity;
+			int prodquantity=bel.getQuantity()+1;
+			if(quantity!=-1) prodquantity=quantity;
 			getData().set(getData().indexOf(bel), new Belanjaan(prod, prodquantity));
 		}else{
 			// jika tidak ada dalam keranjang
 			// maka masukan ke keranjang
+			if(quantity==-1) quantity=1;
 			getData().add(new Belanjaan(prod, quantity));
 		}
 		// update total belanja

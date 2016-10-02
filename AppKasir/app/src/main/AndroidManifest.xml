@@ -18,6 +18,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+		<activity
+            android:name="com.agusibrahim.appkasir.Widget.EditorDialog"
+            android:label="tring/title_activity_fragment1" >
+        </activity>
     </application>
 
 </manifest>
