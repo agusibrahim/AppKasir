@@ -72,8 +72,8 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		updateTotal();
 		notifyDataSetChanged();
 	}
-	public void hapus(Produk produk){
-		getData().remove(produk);
+	public void hapus(Belanjaan bel){
+		getData().remove(bel);
 		// update total belanja
 		updateTotal();
 		notifyDataSetChanged();
