@@ -30,7 +30,12 @@ public class EditorDialog
 					totalbelanja.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
 				}
 			});
-		dlg.setNeutralButton("Hapus Belanjaan", null);
+		dlg.setNeutralButton("Hapus Belanjaan", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					MainActivity.dataBalanjaan.hapus(bel);
+				}
+			});
 		dlg.show();
 		totalview.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(harga*val));
 		hargaview.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(harga));
