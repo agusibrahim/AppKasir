@@ -10,6 +10,7 @@ import com.agusibrahim.appkasir.*;
 
 public class ProdukDialog
 {
+	FireDB db = new FireDB();
 	public ProdukDialog(final Context ctx, final Produk dataset){
 		String positiveTxt="Tambahkan";
 		AlertDialog.Builder dlg=new AlertDialog.Builder(ctx);
@@ -41,10 +42,10 @@ public class ProdukDialog
 					data.put("stok", Integer.parseInt(stok.getText().toString()));
 					// Jika mode penambahan
 					if(dataset==null){
-						MainActivity.dataproduk.tambah(data);
+						db.tambah(data);//MainActivity.dataproduk.tambah(data);
 					// Jika mode EDIT
 					}else{
-						MainActivity.dataproduk.perbarui(dataset, data);
+						db.perbarui(dataset, data);
 					}
 				}
 			});
@@ -62,7 +63,7 @@ public class ProdukDialog
 		hapusBtn.setOnLongClickListener(new View.OnLongClickListener(){
 				@Override
 				public boolean onLongClick(View p1) {
-					MainActivity.dataproduk.hapus(dataset);
+					db.hapus(dataset);
 					dialog.dismiss();
 					Toast.makeText(p1.getContext(), "Terhapus", Toast.LENGTH_SHORT).show();
 					return false;

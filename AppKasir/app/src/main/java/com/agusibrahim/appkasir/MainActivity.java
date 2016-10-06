@@ -19,6 +19,8 @@ import kr.co.namee.permissiongen.*;
 import android.*;
 import android.support.v7.app.AlertDialog;
 import android.content.*;
+import com.firebase.client.*;
+import android.support.v7.app.AlertDialog;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -26,11 +28,22 @@ public class MainActivity extends AppCompatActivity
 	NavigationView nvDrawer;
 	ActionBarDrawerToggle drawerToggle;
 	Toolbar toolbar;
+	
+	public static Firebase mFirebase;
+	public static List<String> keyIndex = new ArrayList<String>();
+	
 	public static ProdukDataAdapter dataproduk;
 	public static BelanjaanDataAdapter dataBalanjaan;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		try{Firebase.getDefaultConfig().setPersistenceEnabled(true);
+		}catch(Exception e){
+			Toast.makeText(this, "Gagal setting direbase", Toast.LENGTH_SHORT).show();
+		}
+		Firebase.setAndroidContext(this);
+		mFirebase = new Firebase("https://restjal.firebaseio.com").child("dataproduk");
+		
 		setContentView(R.layout.activity_main);
 		toolbar=(Toolbar) findViewById(R.id.mytoolbar);
 		setSupportActionBar(toolbar);
@@ -43,8 +56,43 @@ public class MainActivity extends AppCompatActivity
 		nvDrawer.getMenu().getItem(0).setChecked(true);
 		setTitle("Belanja");
 		reqPerms();
-		dataproduk=new ProdukDataAdapter(this, Produk.getInit(this));
+		dataproduk=new ProdukDataAdapter(this, new ArrayList<Produk>());
 		dataBalanjaan=new BelanjaanDataAdapter(this);
+		mFirebase.addChildEventListener(new ChildEventListener() {
+				@Override
+				public void onChildAdded(DataSnapshot p1, String p2) {
+					Produk p = p1.getValue(Produk.class);
+					if(keyIndex.indexOf(p1.getKey())>=0) return;
+					keyIndex.add(p1.getKey());
+					MainActivity.dataproduk.getData().add(p);
+					MainActivity.dataproduk.notifyDataSetChanged();
+				}
+
+				@Override
+				public void onChildChanged(DataSnapshot p1, String p2) {
+					Produk p = p1.getValue(Produk.class);
+					MainActivity.dataproduk.getData().set(getPosByProduk(p), p);
+					MainActivity.dataproduk.notifyDataSetChanged();
+				}
+
+				@Override
+				public void onChildRemoved(DataSnapshot p1) {
+					Produk p = p1.getValue(Produk.class);
+					keyIndex.remove(p1.getKey());
+					MainActivity.dataproduk.getData().remove(getPosByProduk(p));
+					MainActivity.dataproduk.notifyDataSetChanged();
+				}
+
+				@Override
+				public void onChildMoved(DataSnapshot p1, String p2) {
+					// TODO: Implement this method
+				}
+
+				@Override
+				public void onCancelled(FirebaseError p1) {
+					// TODO: Implement this method
+				}
+			});
     }
 	
 	private void reqPerms(){
@@ -145,9 +193,39 @@ public class MainActivity extends AppCompatActivity
 	}
 	@Override
 	protected void onDestroy() {
-		
 		dataBalanjaan.total=0;
+		mFirebase=null;
 		super.onDestroy();
 	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+		dlg.setTitle("Exit Confirmation");
+		dlg.setMessage("Yakin mau keluar?");
+		dlg.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					MainActivity.this.finish();
+					// Ntahlah, gw belum nemu cara meng close firebase saat exit
+					// cara yg gw tau hanya mengkill semua proses saat app exit
+					android.os.Process.killProcess(android.os.Process.myPid());
+				}
+			});
+		dlg.setNegativeButton("Tidak", null);
+		dlg.show();
+	}
 	
+	private int getPosByProduk(Produk p){
+		List<Produk> data = dataproduk.getData();
+		int pos = -1;
+		for(Produk pp: data){
+			if(pp.getSn().equals(p.getSn())){
+				pos=data.indexOf(pp);
+				break;
+			}
+		}
+		return pos;
+	}
+
 }

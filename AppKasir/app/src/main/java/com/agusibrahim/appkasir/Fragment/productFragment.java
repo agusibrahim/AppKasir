@@ -103,7 +103,8 @@ public class productFragment extends Fragment
 									.setAction("Hapus", new View.OnClickListener(){
 										@Override
 										public void onClick(View p1) {
-											MainActivity.dataproduk.hapus(clickedData);
+											new FireDB().hapus(clickedData);
+											//MainActivity.dataproduk.hapus(clickedData);
 											Toast.makeText(getActivity(), "Terhapus", Toast.LENGTH_SHORT).show();
 										}
 									}).show();

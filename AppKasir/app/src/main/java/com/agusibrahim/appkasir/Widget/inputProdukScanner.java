@@ -200,8 +200,8 @@ public class inputProdukScanner {
 					data.put("sn", barcodeView.getStatusView().getText().toString());
 					data.put("harga", Long.parseLong(hargaproduk.getText().toString()));
 					data.put("stok", Integer.parseInt(stokproduk.getText().toString()));
-					if (produk_terindentifikasi == null) MainActivity.dataproduk.tambah(data);
-					else MainActivity.dataproduk.perbarui(produk_terindentifikasi, data);
+					//if (produk_terindentifikasi == null) MainActivity.dataproduk.tambah(data);
+					//else MainActivity.dataproduk.perbarui(produk_terindentifikasi, data);
 					imm.hideSoftInputFromWindow(namaproduk.getWindowToken(), 0);
 					namaproduk.setText("");
 					hargaproduk.setText("");

@@ -6,11 +6,13 @@ import android.content.*;
 
 public class Produk
 {
-	protected String nama;
-	protected String sn;
-	protected long harga;
-	protected int stok;
-
+	private String nama;
+	private String sn;
+	private long harga;
+	private int stok;
+	
+	public Produk(){
+	}
 	public Produk(String nama, String sn, long harga, int stok) {
 		this.nama = nama;
 		this.sn = sn;
