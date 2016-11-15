@@ -9,5 +9,8 @@
         android:id="@+id/tambahbanyak"
         android:icon="@drawable/ic_credit_card_multiple"
         android:title="Tambah Banyak" />
-    
+    <item
+        android:id="@+id/dummyadd"
+        android:icon="@drawable/ic_credit_card_multiple"
+        android:title="Test DummyData" />
 </menu>

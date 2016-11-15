@@ -7,6 +7,14 @@
 	android:paddingLeft="10dp"
 	android:paddingRight="10dp">
 
+	<com.journeyapps.barcodescanner.DecoratedBarcodeView
+		android:layout_height="100dp"
+		android:layout_width="match_parent"
+		android:orientation="vertical"
+		android:background="#525150"
+		android:id="@+id/scannerdlg"
+		android:visibility="gone"/>
+
 	<android.support.design.widget.TextInputLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -31,13 +39,13 @@
 			android:layout_height="wrap_content"
 			android:layout_width="wrap_content"
 			android:src="@drawable/ic_barcode"
-			android:id="@+id/produkdlgImageButton1"
+			android:id="@+id/scanbtn"
 			android:layout_alignParentRight="true"/>
 
 		<android.support.design.widget.TextInputLayout
 			android:layout_width="match_parent"
 			android:layout_height="wrap_content"
-			android:layout_toLeftOf="@id/produkdlgImageButton1"
+			android:layout_toLeftOf="@id/scanbtn"
 			android:layout_alignParentLeft="true">
 
 			<EditText

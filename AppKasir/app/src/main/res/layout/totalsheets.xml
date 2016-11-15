@@ -16,7 +16,8 @@
 		android:id="@+id/caps"
 		android:orientation="horizontal"
 		android:background="@color/primary_dark"
-		android:padding="10dp">
+		android:padding="10dp"
+		android:gravity="center_vertical">
 
 		<TextView
 			android:layout_width="wrap_content"

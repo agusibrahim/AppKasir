@@ -44,7 +44,7 @@ public class belanjaFragment extends Fragment
 			});
 		
 		if(BelanjaanDataAdapter.total!=0){
-			totaljum.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+			totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 		}else{
 			bottomSheetBehavior.setState(BottomSheetBehavior.STATE_HIDDEN);

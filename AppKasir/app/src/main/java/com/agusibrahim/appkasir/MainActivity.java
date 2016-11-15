@@ -149,5 +149,21 @@ public class MainActivity extends AppCompatActivity
 		dataBalanjaan.total=0;
 		super.onDestroy();
 	}
+
+	@Override
+	public void onBackPressed() {
+		AlertDialog.Builder dlg = new AlertDialog.Builder(this);
+		dlg.setTitle("Exit Confirmation");
+		dlg.setMessage("Yakin mau keluar?");
+		dlg.setPositiveButton("Ya", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					MainActivity.this.finish();
+				}
+			});
+		dlg.setNegativeButton("Tidak", null);
+		dlg.show();
+		//super.onBackPressed();
+	}
 	
 }

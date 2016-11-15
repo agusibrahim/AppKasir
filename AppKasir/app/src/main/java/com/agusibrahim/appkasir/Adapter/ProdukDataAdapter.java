@@ -23,7 +23,7 @@ public class ProdukDataAdapter extends TableDataAdapter
 				render=renderString(produk.getNama());
 				break;
 			case 1:
-				render=renderString("Rp. "+PRICE_FORMATTER.format(produk.getHarga()));
+				render=renderString(Utils.priceFormat(produk.getHarga()));
 				break;
 			case 2:
 				render=renderString(""+produk.getStok());

@@ -27,20 +27,26 @@ public class EditorDialog
 				@Override
 				public void onClick(DialogInterface p1, int p2) {
 					MainActivity.dataBalanjaan.tambah(bel.getProduk(), num.getValue());
-					totalbelanja.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+					totalbelanja.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 				}
 			});
-		dlg.setNeutralButton("Hapus Belanjaan", null);
+		dlg.setNeutralButton("Hapus Belanjaan", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
+					MainActivity.dataBalanjaan.hapus(bel);
+					totalbelanja.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
+				}
+			});
 		dlg.show();
-		totalview.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(harga*val));
-		hargaview.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(harga));
+		totalview.setText(Utils.priceFormat(harga*val));
+		hargaview.setText(Utils.priceFormat(harga));
 		num.setMinValue(1);
 		num.setMaxValue(200);
 		num.setValue(val);
 		num.setOnValueChangedListener(new NumberPicker.OnValueChangeListener(){
 				@Override
 				public void onValueChange(NumberPicker p1, int p2, int p3) {
-					totalview.setText("Rp. "+BelanjaanDataAdapter.PRICE_FORMATTER.format(harga*num.getValue()));
+					totalview.setText(Utils.priceFormat(harga*num.getValue()));
 				}
 			});
 		

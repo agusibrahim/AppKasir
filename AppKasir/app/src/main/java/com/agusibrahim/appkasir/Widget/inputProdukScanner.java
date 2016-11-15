@@ -26,7 +26,7 @@ public class inputProdukScanner {
 		this.imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
 		dlg = new AlertDialog.Builder(ctx);
 	}
-	public void setupScanner() {
+	/*public void setupScanner() {
 		barcodeView.setStatusText("Arahkan ke barcode");
 		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
 		formatList.add(BarcodeFormat.EAN_13);
@@ -51,7 +51,7 @@ public class inputProdukScanner {
 					lampufles = false;
 				}
 			});
-	}
+	}*/
 	public void shoping() {
 		View v=LayoutInflater.from(ctx).inflate(R.layout.shopingscanner, null);
 		final TextView namaproduk=(TextView) v.findViewById(R.id.scanNamaProduk);
@@ -59,7 +59,7 @@ public class inputProdukScanner {
 		final TextView snProduk=(TextView) v.findViewById(R.id.scanSN);
 		final CheckBox tanpakonf=(CheckBox) v.findViewById(R.id.autoaddcheck);
 		barcodeView = (DecoratedBarcodeView) v.findViewById(R.id.scannershop);
-		setupScanner();
+		Utils.setupScanner(barcodeView);
 		dlg.setView(v);
 		dlg.setTitle("Pemindai Barcode");
 		dlg.setCancelable(false);
@@ -90,7 +90,7 @@ public class inputProdukScanner {
 				public void onClick(View p1) {
 					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 					// Update totalJumalah di BottomSheet
-					belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+					belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 				}
 			});
 
@@ -102,16 +102,17 @@ public class inputProdukScanner {
 					// Kalo ngga ya diem
 					if (produk_terindentifikasi != null) {
 						namaproduk.setText(produk_terindentifikasi.getNama());
-						hargaproduk.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(produk_terindentifikasi.getHarga()));
+						hargaproduk.setText(Utils.priceFormat(produk_terindentifikasi.getHarga()));
 						snProduk.setText(result.getText());
 						namaproduk.setVisibility(View.VISIBLE);
 						hargaproduk.setVisibility(View.VISIBLE);
+						
 						// Jika mode otomatis (tanpa konfirm) di cek
 						if (tanpakonf.isChecked()) {
 							okBtn.setEnabled(false);
 							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 							// Update totalJumalah di BottomSheet
-							belanjaFragment.totaljum.setText("Rp. " + BelanjaanDataAdapter.PRICE_FORMATTER.format(BelanjaanDataAdapter.total));
+							belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 							// Pause dulu kamera jika sudah berhasil mengidentifikasi produk
 							// setelah 2dtk baru di resume
 							// ini utk menghindari scan beruntun, dlm waktu 2dtk jauhkan barcode dari kamera atau aplikasi akan mengupdate status Quantity-nya
@@ -140,46 +141,29 @@ public class inputProdukScanner {
 		final EditText namaproduk=(EditText) v.findViewById(R.id.new_namaproduk);
 		final EditText hargaproduk=(EditText) v.findViewById(R.id.new_hargaproduk);
 		final EditText stokproduk=(EditText) v.findViewById(R.id.new_stok);
-		final Button tambahkanbtn=(Button) v.findViewById(R.id.tambhakanbtn);
+		//final Button tambahkanbtn=null;//=(Button) v.findViewById(R.id.tambhakanbtn);
 		final Button cancelbtn=(Button) v.findViewById(R.id.cancelbtn);
 		final Button selesaibtn=(Button) v.findViewById(R.id.selesaibtn);
 
 		namaproduk.setEnabled(false);
 		hargaproduk.setEnabled(false);
 		stokproduk.setEnabled(false);
-		final BarcodeCallback callback = new BarcodeCallback() {
-			@Override
-			public void barcodeResult(BarcodeResult result) {
-				if (result.getText() != null) {
-					namaproduk.setEnabled(true);
-					hargaproduk.setEnabled(true);
-					stokproduk.setEnabled(true);
-					namaproduk.requestFocus();
-					produk_terindentifikasi = Produk.getBySN(ctx, result.getText());
-					if (produk_terindentifikasi != null) {
-						tambahkanbtn.setText("Perbarui");
-						namaproduk.setText(produk_terindentifikasi.getNama());
-						hargaproduk.setText("" + produk_terindentifikasi.getHarga());
-						stokproduk.setText("" + produk_terindentifikasi.getStok());
-					} else {
-						tambahkanbtn.setText("Tambahkan");
-					}
-					imm.showSoftInput(namaproduk, InputMethodManager.SHOW_IMPLICIT);
-					barcodeView.setStatusText(result.getText());
-				}
-			}
-			@Override
-			public void possibleResultPoints(List<ResultPoint> resultPoints) {
-			}
-		};
+		
 		barcodeView = (DecoratedBarcodeView) v.findViewById(R.id.scanner);
-		setupScanner();
+		Utils.setupScanner(barcodeView);
 		dlg.setView(v);
 		dlg.setCancelable(false);
 		dlg.setTitle("Tambahkan Produk");
 		dlg.setOnCancelListener(new DialogInterface.OnCancelListener(){
 				@Override
 				public void onCancel(DialogInterface p1) {
+					barcodeView.pause();
+				}
+			});
+		dlg.setPositiveButton("Tambahkan", null);
+		dlg.setNeutralButton("Selesai", new DialogInterface.OnClickListener(){
+				@Override
+				public void onClick(DialogInterface p1, int p2) {
 					barcodeView.pause();
 				}
 			});
@@ -192,13 +176,16 @@ public class inputProdukScanner {
 				}
 			});
 
-		tambahkanbtn.setOnClickListener(new View.OnClickListener(){
+		
+		dialog.show();
+		final Button addbtn=dialog.getButton(DialogInterface.BUTTON_POSITIVE);
+		addbtn.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
 					ContentValues data = new ContentValues();
 					data.put("nama", namaproduk.getText().toString());
 					data.put("sn", barcodeView.getStatusView().getText().toString());
-					data.put("harga", Long.parseLong(hargaproduk.getText().toString()));
+					data.put("harga", Long.parseLong(hargaproduk.getText().toString().replaceAll("[a-zA-Z\\.]", "")));
 					data.put("stok", Integer.parseInt(stokproduk.getText().toString()));
 					if (produk_terindentifikasi == null) MainActivity.dataproduk.tambah(data);
 					else MainActivity.dataproduk.perbarui(produk_terindentifikasi, data);
@@ -212,8 +199,33 @@ public class inputProdukScanner {
 					barcodeView.setStatusText("Arahkan ke barcode");
 				}
 			});
-		dialog.show();
-		tambahkanbtn.setEnabled(false);
+		addbtn.setEnabled(false);
+		
+		final BarcodeCallback callback = new BarcodeCallback() {
+			@Override
+			public void barcodeResult(BarcodeResult result) {
+				if (result.getText() != null) {
+					namaproduk.setEnabled(true);
+					hargaproduk.setEnabled(true);
+					stokproduk.setEnabled(true);
+					namaproduk.requestFocus();
+					produk_terindentifikasi = Produk.getBySN(ctx, result.getText());
+					if (produk_terindentifikasi != null) {
+						addbtn.setText("Perbarui");
+						namaproduk.setText(produk_terindentifikasi.getNama());
+						hargaproduk.setText("" + produk_terindentifikasi.getHarga());
+						stokproduk.setText("" + produk_terindentifikasi.getStok());
+					} else {
+						addbtn.setText("Tambahkan");
+					}
+					imm.showSoftInput(namaproduk, InputMethodManager.SHOW_IMPLICIT);
+					barcodeView.setStatusText(result.getText());
+				}
+			}
+			@Override
+			public void possibleResultPoints(List<ResultPoint> resultPoints) {
+			}
+		};
 		TextWatcher watcher=new TextWatcher(){
 			@Override
 			public void beforeTextChanged(CharSequence p1, int p2, int p3, int p4) {
@@ -225,8 +237,11 @@ public class inputProdukScanner {
 				if (s.length() > 0) {
 					stok = Integer.parseInt(s);
 				}
-				if (namaproduk.getText().length() > 3 && stok > 0 && hargaproduk.getText().length() > 2) tambahkanbtn.setEnabled(true);
-				else tambahkanbtn.setEnabled(false);
+				if (namaproduk.getText().length() > 3 && stok > 0 && hargaproduk.getText().length() > 2) addbtn.setEnabled(true);
+				else addbtn.setEnabled(false);
+				if(hargaproduk.isFocused()){
+					Utils.priceEdit(hargaproduk, p1, this);
+				}
 			}
 			@Override
 			public void afterTextChanged(Editable p1) {

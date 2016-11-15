@@ -58,6 +58,16 @@ public class productFragment extends Fragment
 									case R.id.tambahbanyak:
 										new inputProdukScanner(getActivity()).tambahkanProduk();
 										break;
+									case R.id.dummyadd:
+										for(int i=0;i < 10;i++) {
+											ContentValues data = new ContentValues();
+											data.put("nama", Utils.randWord());
+											data.put("sn", Utils.randint(111111111, 999999999));
+											data.put("harga", Utils.randint(1000, 100000));
+											data.put("stok", Utils.randint(5, 150));
+											MainActivity.dataproduk.tambah(data);
+										}
+										break;
 								}
 							}
 
@@ -83,7 +93,7 @@ public class productFragment extends Fragment
         public void onDataClicked(int rowIndex, final Produk clickedData) {
 			new BottomSheet.Builder(getActivity())
 				.setSheet(R.menu.popupmenu)
-				.setTitle(clickedData.getNama()+" - (Rp. "+ProdukDataAdapter.PRICE_FORMATTER.format( clickedData.getHarga())+")")
+				.setTitle(clickedData.getNama()+" - ("+Utils.priceFormat( clickedData.getHarga())+")")
 				.setListener(new BottomSheetListener(){
 					@Override
 					public void onSheetShown(BottomSheet p1) {

@@ -28,7 +28,7 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 				render=renderString(produk.getNama());
 				break;
 			case 1:
-				render=renderString("Rp. "+PRICE_FORMATTER.format(produk.getHarga()));
+				render=renderString(Utils.priceFormat(produk.getHarga()));
 				break;
 			case 2:
 				render=renderString(""+belanjaan.getQuantity());
@@ -72,8 +72,8 @@ public class BelanjaanDataAdapter extends TableDataAdapter
 		updateTotal();
 		notifyDataSetChanged();
 	}
-	public void hapus(Produk produk){
-		getData().remove(produk);
+	public void hapus(Belanjaan bel){
+		getData().remove(bel);
 		// update total belanja
 		updateTotal();
 		notifyDataSetChanged();
