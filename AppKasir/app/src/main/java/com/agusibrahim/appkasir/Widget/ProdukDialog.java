@@ -1,22 +1,30 @@
 package com.agusibrahim.appkasir.Widget;
-import android.content.*;
-import android.support.v7.app.*;
+import android.content.Context;
+import android.support.v7.app.AlertDialog;
 import android.view.*;
 import android.widget.*;
 import com.agusibrahim.appkasir.Model.*;
 import android.text.*;
 import com.agusibrahim.appkasir.Fragment.productFragment;
-import com.agusibrahim.appkasir.*;
+import com.agusibrahim.appkasir.Utils;
 import com.agusibrahim.appkasir.Adapter.*;
 import java.text.*;
 import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import com.google.zxing.BarcodeFormat;
 import java.util.ArrayList;
 import com.journeyapps.barcodescanner.DefaultDecoderFactory;
-import com.journeyapps.barcodescanner.*;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
 import java.util.*;
-import com.google.zxing.*;
 import android.view.inputmethod.InputMethodManager;
+import android.content.DialogInterface;
+import android.content.ContentValues;
+import com.google.zxing.ResultPoint;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.agusibrahim.appkasir.MainActivity;
+import com.agusibrahim.appkasir.R;
+import com.koushikdutta.async.http.*;
+import org.json.*;
 
 public class ProdukDialog
 {
@@ -79,6 +87,7 @@ public class ProdukDialog
 					}else{
 						MainActivity.dataproduk.perbarui(dataset, data);
 					}
+					
 				}
 			});
 		dlg.setOnCancelListener(new DialogInterface.OnCancelListener(){

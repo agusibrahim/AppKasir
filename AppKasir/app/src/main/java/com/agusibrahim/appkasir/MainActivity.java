@@ -19,6 +19,14 @@ import kr.co.namee.permissiongen.*;
 import android.*;
 import android.support.v7.app.AlertDialog;
 import android.content.*;
+import com.koushikdutta.async.http.server.AsyncHttpServer;
+import com.koushikdutta.async.http.WebSocket;
+import com.koushikdutta.async.http.server.AsyncHttpServerRequest;
+import com.koushikdutta.async.callback.CompletedCallback;
+import com.koushikdutta.async.http.server.HttpServerRequestCallback;
+import java.io.InputStream;
+import com.koushikdutta.async.http.server.AsyncHttpServerResponse;
+import android.util.Log;
 
 public class MainActivity extends AppCompatActivity
 {
@@ -28,6 +36,8 @@ public class MainActivity extends AppCompatActivity
 	Toolbar toolbar;
 	public static ProdukDataAdapter dataproduk;
 	public static BelanjaanDataAdapter dataBalanjaan;
+	public static AsyncHttpServer jserver;
+	public static List<WebSocket> _sockets = new ArrayList<WebSocket>();
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -42,9 +52,32 @@ public class MainActivity extends AppCompatActivity
 		getSupportFragmentManager().beginTransaction().replace(R.id.konten, new belanjaFragment()).commit();
 		nvDrawer.getMenu().getItem(0).setChecked(true);
 		setTitle("Belanja");
+		jserver = new AsyncHttpServer();
 		reqPerms();
 		dataproduk=new ProdukDataAdapter(this, Produk.getInit(this));
 		dataBalanjaan=new BelanjaanDataAdapter(this);
+		jserver.websocket("/live", new AsyncHttpServer.WebSocketRequestCallback() {
+				@Override
+				public void onConnected(final WebSocket ws, AsyncHttpServerRequest p2) {
+					_sockets.add(ws);
+					//ws.send("Hello broo");
+				}
+			});
+		jserver.get("/web/.*", new HttpServerRequestCallback() {
+				@Override
+				public void onRequest(AsyncHttpServerRequest request, AsyncHttpServerResponse response) {
+					//response.send("Hello!!!");
+					//setTitle("web"+request.getPath());
+					Log.e("WebSocket", "req: "+request.getPath());
+					try {
+						InputStream is=getAssets().open(request.getPath().substring(1));
+						response.sendStream(is, is.available());
+					} catch (Exception e) {
+						response.send("Error: "+e.getMessage());
+					}
+				}
+			});
+		jserver.listen(8333);
     }
 	
 	private void reqPerms(){
@@ -79,7 +112,7 @@ public class MainActivity extends AppCompatActivity
 				fragclass=productFragment.class;
 				break;
 			default:
-				fragclass=belanjaFragment.class;
+				fragclass=laporanFragment.class;
 		}
 		try{
 			frag=(Fragment) fragclass.newInstance();
@@ -116,11 +149,7 @@ public class MainActivity extends AppCompatActivity
 		super.onConfigurationChanged(newConfig);
 		drawerToggle.onConfigurationChanged(newConfig);
 	}
-	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		getMenuInflater().inflate(R.menu.mainmenu, menu);
-		return true;
-	}
+	
 	@PermissionSuccess(requestCode = 100)
 	public void doSomething(){
 		// Lakukan sesuatu disini
@@ -145,7 +174,6 @@ public class MainActivity extends AppCompatActivity
 	}
 	@Override
 	protected void onDestroy() {
-		
 		dataBalanjaan.total=0;
 		super.onDestroy();
 	}
@@ -165,5 +193,4 @@ public class MainActivity extends AppCompatActivity
 		dlg.show();
 		//super.onBackPressed();
 	}
-	
 }

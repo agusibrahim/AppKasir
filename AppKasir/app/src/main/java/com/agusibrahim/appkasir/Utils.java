@@ -35,14 +35,13 @@ public class Utils
 		String formatted=priceFormat(cleanString);
 		et.setText(formatted);
 		et.setSelection(formatted.length());
-
 		et.addTextChangedListener(watcher);
 	}
 	public static void setupScanner(final DecoratedBarcodeView barcodeView) {
 		barcodeView.setStatusText("Arahkan ke barcode");
 		ArrayList<BarcodeFormat> formatList = new ArrayList<BarcodeFormat>();
 		formatList.add(BarcodeFormat.EAN_13);
-		barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList, null, null));
+		barcodeView.getBarcodeView().setDecoderFactory(new DefaultDecoderFactory(formatList,null, null, false));
 		// Toggle flashlight saat viewfinder barcode disentuh
 		barcodeView.setOnClickListener(new View.OnClickListener(){
 				@Override
@@ -52,7 +51,6 @@ public class Utils
 				}
 			});
 		barcodeView.setTorchListener(new DecoratedBarcodeView.TorchListener(){
-
 				@Override
 				public void onTorchOn() {
 					lampufles = true;

@@ -1,18 +1,24 @@
 package com.agusibrahim.appkasir.Widget;
-import android.content.*;
+import android.content.Context;
 import android.view.*;
 import android.widget.*;
-import com.journeyapps.barcodescanner.*;
 import android.view.inputmethod.*;
 import java.util.*;
-import com.google.zxing.*;
 import android.text.*;
 import com.agusibrahim.appkasir.Model.*;
 import android.support.v7.app.AlertDialog;
 import com.agusibrahim.appkasir.Adapter.*;
-import android.os.*;
+import android.os.Bundle;
 import com.agusibrahim.appkasir.Fragment.*;
 import com.agusibrahim.appkasir.*;
+import android.content.DialogInterface;
+import android.content.ContentValues;
+import android.os.Handler;
+import com.google.zxing.ResultPoint;
+import com.journeyapps.barcodescanner.DecoratedBarcodeView;
+import com.journeyapps.barcodescanner.BarcodeResult;
+import com.journeyapps.barcodescanner.BarcodeCallback;
+import com.agusibrahim.appkasir.Widget.inputProdukScanner.*;
 
 public class inputProdukScanner {
 	Context ctx;
@@ -21,6 +27,14 @@ public class inputProdukScanner {
 	private Produk produk_terindentifikasi=null;
 	AlertDialog.Builder dlg;
 	boolean lampufles=false;
+	private inputProdukScanner.OnProductIndentified callback;
+	public interface OnProductIndentified{
+		void onIdentified(Produk produk);
+	}
+	public void setOnProductIdentified(OnProductIndentified x){
+		callback=x;
+	}
+	
 	public inputProdukScanner(Context ctx) {
 		this.ctx = ctx;
 		this.imm = (InputMethodManager) ctx.getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -88,9 +102,10 @@ public class inputProdukScanner {
 		okBtn.setOnClickListener(new View.OnClickListener(){
 				@Override
 				public void onClick(View p1) {
-					MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
+					if(callback!=null) callback.onIdentified(produk_terindentifikasi);
+					//MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 					// Update totalJumalah di BottomSheet
-					belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
+					//belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 				}
 			});
 
@@ -110,9 +125,10 @@ public class inputProdukScanner {
 						// Jika mode otomatis (tanpa konfirm) di cek
 						if (tanpakonf.isChecked()) {
 							okBtn.setEnabled(false);
-							MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
+							if(callback!=null) callback.onIdentified(produk_terindentifikasi);
+							//MainActivity.dataBalanjaan.tambah(produk_terindentifikasi, -1);
 							// Update totalJumalah di BottomSheet
-							belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
+							//belanjaFragment.totaljum.setText(Utils.priceFormat(BelanjaanDataAdapter.total));
 							// Pause dulu kamera jika sudah berhasil mengidentifikasi produk
 							// setelah 2dtk baru di resume
 							// ini utk menghindari scan beruntun, dlm waktu 2dtk jauhkan barcode dari kamera atau aplikasi akan mengupdate status Quantity-nya

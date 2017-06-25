@@ -1,14 +1,14 @@
 package com.agusibrahim.appkasir.Widget;
-import android.content.*;
+import android.content.Context;
 import com.agusibrahim.appkasir.*;
 import android.view.*;
-import android.widget.*;
+import android.widget.TextView;
 import com.agusibrahim.appkasir.Adapter.*;
-import android.support.v7.app.*;
-import android.support.v4.app.*;
-import android.app.Dialog;
-import android.os.*;
+import android.support.v7.app.AlertDialog;
+import android.os.Bundle;
 import com.agusibrahim.appkasir.Model.*;
+import android.content.DialogInterface;
+import android.widget.NumberPicker;
 
 public class EditorDialog
 {

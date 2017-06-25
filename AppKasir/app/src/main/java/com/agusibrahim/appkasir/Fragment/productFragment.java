@@ -1,6 +1,5 @@
 package com.agusibrahim.appkasir.Fragment;
 
-import android.app.*;
 import android.os.*;
 import android.support.v7.app.AppCompatActivity;
 import de.codecrafters.tableview.*;
@@ -21,6 +20,7 @@ import com.agusibrahim.appkasir.R;
 import android.content.*;
 import com.agusibrahim.appkasir.*;
 import com.agusibrahim.appkasir.Widget.*;
+import android.support.v7.app.AlertDialog;
 
 public class productFragment extends Fragment 
 {
@@ -31,7 +31,7 @@ public class productFragment extends Fragment
 		View v=inflater.inflate(R.layout.myproduct, container, false);
 		fab_addbtn=(FloatingActionButton) v.findViewById(R.id.fab_addproduct);
 		TableGue tableView = (TableGue) v.findViewById(R.id.tableView);
-		
+		setHasOptionsMenu(true);
 		tableView.setDataAdapter(MainActivity.dataproduk);
 		tableView.addDataClickListener(new DataClickListener());
 		tableView.addDataLongClickListener(new DataLongClickListener());
@@ -136,6 +136,26 @@ public class productFragment extends Fragment
 			return true;
         }
     }
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch(item.getItemId()){
+			case R.id.bakres:
+				View v=LayoutInflater.from(getActivity()).inflate(R.layout.backup_dialog, null);
+				AlertDialog.Builder dlg=new AlertDialog.Builder(getActivity());
+				dlg.setView(v);
+				dlg.setTitle("Backup/Restore Data");
+				dlg.show();
+				break;
+		}
+		return super.onOptionsItemSelected(item);
+	}
+	
+	@Override
+	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		inflater.inflate(R.menu.produk_options_menu, menu);
+		super.onCreateOptionsMenu(menu, inflater);
+	}
 	
 	/*@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
