@@ -1,7 +1,7 @@
 ## AppKasir
+Please reffer https://github.com/agusibrahim/AppKasir-androidstudio if you're Android Studio user
 
 ## UNDER CONSTRUCTION ⚠
-
 Aplikasi sumber terbuka yang digunakan untuk mencatat ataupun membuat invoice untuk kasir / penjaga toko.
 
 Dilengkapi dengan Barcode Scanner sehingga memudahkan dalam menambahkan Produk ke Database ataupun ke Daftar Belanja.
